@@ -10,8 +10,8 @@ var streamify = require('gulp-streamify');
 
 var path = {
 	HTML: 'index.html',
-	MINIFIED_OUT: 'build.min.js',
-	OUT: 'build.js',
+	MINIFIED_OUT: 'app.min.js',
+	OUT: 'app.js',
 	DEST: 'build',
 	DEST_SRC: 'src',
 	ENTRY_POINT: './src/index.js'
@@ -37,11 +37,11 @@ gulp.task('watch', function() {
     return watcher.on('update', function() {
         watcher.bundle()
         .pipe(source(path.OUT))
-        .pipe(gulp.dest(path.DEST_SRC))
+        .pipe(gulp.dest(path.DEST))
         console.log('Updated');
     }).bundle()
     .pipe(source(path.OUT))
-    .pipe(gulp.dest(path.DEST_SRC));
+    .pipe(gulp.dest(path.DEST));
 });
 
 // Dev task
