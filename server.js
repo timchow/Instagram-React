@@ -5,8 +5,6 @@ var path    = require("path");
 var http = require('http');
 var pug = require('pug');
 
-console.log(path.join(__dirname+'/build/index.html'));
-
 app.get('/', function(req, res, next) {
     var html = pug.renderFile(__dirname + '/index.pug');
     res.send(html);
