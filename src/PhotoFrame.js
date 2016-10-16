@@ -1,26 +1,15 @@
 var React = require('react');
-function callback (data){
-
-        }
+function jsonpcallback(rtndata) {
+    console.log(rtndata)
+}
 var PhotoFrame = React.createClass({
     getUserInfo: function(user) {
         // get data from IG api
-        var reqUrl = "https://www.instagram.com/"+user+"/?__a=1";
-        var options = {
-            url: reqUrl,
-            crossDomain: true,
-            success: function(data) {
-                console.log(data);
-            }
-        };
-
-        /*$.get(reqUrl).done(function(data){
-            console.log(data)
-        });*/
-        /*$.when($.ajax(options)).then(function(data, status, jqHR){
-            console.log(data);
-        });*/
-        $.ajax(options);
+        $.ajax({
+          dataType: "json",
+          url: "/userInfo?user="+user,
+          success: function(res){console.log(res)}
+        });
     },
     componentDidMount: function() {
         $('#bar').on('search', function(e) {
