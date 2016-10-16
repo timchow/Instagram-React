@@ -1,7 +1,5 @@
 var React = require('react');
-function jsonpcallback(rtndata) {
-    console.log(rtndata)
-}
+
 var PhotoFrame = React.createClass({
     getUserInfo: function(user) {
         // get data from IG api
@@ -30,7 +28,6 @@ var PhotoFrame = React.createClass({
             </thead>
             <tbody>{rows}</tbody>
             </table>
-
             </div>
         );
     }
