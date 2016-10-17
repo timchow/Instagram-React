@@ -23,8 +23,8 @@ app.get('/', function(req, res, next) {
 app.get('/userInfo', function(req, res, next) {
 	res.setHeader('Content-Type', 'application/json');		
 	var response = res;
-	var user = req.query.user;
-	var reqUrl = "https://www.instagram.com/"+user+"/?__a=1";
+	var user_name = req.query.user_name;
+	var reqUrl = "https://www.instagram.com/"+user_name+"/?__a=1";
 	var body = "";
 
 	https.get(reqUrl, function(res) {
@@ -40,8 +40,10 @@ app.get('/userInfo', function(req, res, next) {
 app.get('/media', function(req, res, next) {
 	res.setHeader('Content-Type', 'application/json');
 	var response = res;
-	var user = req.query.userId;
-	var reqUrl = "https://api.instagram.com/v1/users/"+user+"/media/recent/?access_token="+ACCESS_TOKEN;
+	var user_id = req.query.user_id,
+		max_id = req.query.max_id
+
+	var reqUrl = "https://api.instagram.com/v1/users/"+user_id+"/media/recent/?access_token="+ACCESS_TOKEN+"&max_id="+max_id;
 	var body = "";
 	https.get(reqUrl, function(res) {
 		res.on('data', function (data) {
