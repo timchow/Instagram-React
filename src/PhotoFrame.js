@@ -58,11 +58,13 @@ var PhotoFrame = React.createClass({
             var likes = media.likes.count;
             var caption = media.caption.text;
             //console.log(media)
-            photos.push(<Photo 
-                imageUrl={imageUrl}
-                likes={likes}
-                caption={caption}
-                />);
+            photos.push(
+                <Photo 
+                    imageUrl={imageUrl}
+                    likes={likes}
+                    caption={caption}
+                />
+            );
         });
 
         return (
