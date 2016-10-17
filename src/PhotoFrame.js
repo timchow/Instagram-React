@@ -24,8 +24,6 @@ var PhotoFrame = React.createClass({
                 InstagramService.getRecentUserMedia(res.user.id).then(function(res) {
                     that.setState({
                         media: res.data
-                    }, function(res){
-                        //console.log(this.state.media);
                     });
                 });
             });
