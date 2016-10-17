@@ -7,6 +7,11 @@ var PhotoFrame = React.createClass({
         var that = this;
 
         InstagramService.getRecentUserMedia(user_id, max_id).then(function(res) {
+            if (res.data.length == 0) {
+                console.log("No photos to load!");
+                return;
+            }
+
             that.setState({
                 media: that.state.media.concat(res.data),
                 max_id: res.data[res.data.length-1].id,
@@ -35,11 +40,10 @@ var PhotoFrame = React.createClass({
         $('#bar').on('search', function(e) {
             var user_name = this.props.searchText;
             InstagramService.getUserInfo(user_name).then(function(res) {
+                that.setState(that.getInitialState());
                 that.retrievePhotos(res.user.id);
                 that.retrieveMorePhotosOnScroll();
             });
-            
-            
         }.bind(this));
     },
     componentWillUnmount: function() {
