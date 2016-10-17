@@ -5,6 +5,8 @@ var path    = require("path");
 var https = require('https');
 var pug = require('pug');
 
+var ACCESS_TOKEN = "48202095.e029fea.7e080ab5cc0a4ae6b8094adf05a5e980";
+
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -25,9 +27,24 @@ app.get('/userInfo', function(req, res, next) {
 	var reqUrl = "https://www.instagram.com/"+user+"/?__a=1";
 	var body = "";
 
-	https.get(reqUrl, function(res,bodyy) {
+	https.get(reqUrl, function(res) {
 		res.on('data', function (data) {
-			console.log(data)
+			body += data;
+		});
+		res.on('end', function(){
+			response.send(body);
+		})
+	});
+});
+
+app.get('/media', function(req, res, next) {
+	res.setHeader('Content-Type', 'application/json');
+	var response = res;
+	var user = req.query.userId;
+	var reqUrl = "https://api.instagram.com/v1/users/"+user+"/media/recent/?access_token="+ACCESS_TOKEN;
+	var body = "";
+	https.get(reqUrl, function(res) {
+		res.on('data', function (data) {
 			body += data;
 		});
 		res.on('end', function(){
