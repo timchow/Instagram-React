@@ -4,22 +4,23 @@ var InstagramService = (function() {
 		getRecentUserMedia: getRecentUserMedia
 	};
 
-	function getUserInfo (username) {
+	function getUserInfo (user_name) {
 		var options = {
 			url: "/userInfo",
 			data: {
-				user: username
+				user_name: user_name
 			}
 		};
 
 		return $.ajax(options);
 	};
 
-	function getRecentUserMedia (userId) {
+	function getRecentUserMedia (user_id, max_id) {
 		var options = {
 			url: "/media",
 			data: {
-				userId: userId
+				user_id: user_id,
+				max_id: max_id
 			}
 		};
 
