@@ -1,5 +1,6 @@
 // Defining packages
 var gulp = require('gulp');
+const babel = require('gulp-babel');
 var uglify = require('gulp-uglify');
 var htmlreplace = require('gulp-html-replace');
 var source = require('vinyl-source-stream');
