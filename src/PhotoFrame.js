@@ -3,13 +3,6 @@ var Photo = require('./Photo.js');
 var InstagramService = require('./InstagramService.js');
 
 var PhotoFrame = React.createClass({
-    getUserMedia: function(user) {
-
-        InstagramService.getUserInfo(user).then(function(res){
-            InstagramService.getRecentUserMedia(res.user.id).then(function(res) {
-            });
-        });
-    },
     getInitialState: function() {
         return {
             media: []
@@ -18,7 +11,7 @@ var PhotoFrame = React.createClass({
     componentDidMount: function() {
         var that = this;
         $('#bar').on('search', function(e) {
-            var user =this.props.searchText;
+            var user = this.props.searchText;
             
             InstagramService.getUserInfo(user).then(function(res){
                 InstagramService.getRecentUserMedia(res.user.id).then(function(res) {
