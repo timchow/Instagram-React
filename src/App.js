@@ -2,14 +2,24 @@ var ReactDOM = require('react-dom');
 var React = require('react');
  
 var SearchBar = require('./SearchBar');
-var PhotoFrame = require('./PhotoFrame')
+var PhotoFrame = require('./PhotoFrame');
+var NewDialog = require('./Dialog.js');
  
 
 var App = React.createClass({
 	getInitialState: function() {
 		return {
-			searchText: ''
+			searchText: '',
+			showDialog: false
 		};
+	},
+	componentDidMount: function() {
+		var that = this;
+		$(window).on('beans', function() {
+			that.setState({
+				showDialog: true
+			});
+		});
 	},
 	handleUserInput: function(a) {
 		this.setState({
@@ -17,6 +27,12 @@ var App = React.createClass({
 		}, function() {
 			$('#bar').trigger('search');
 		});
+	},
+	_showDialog: function() {
+		this.setState( {showDialog: true } );
+	},
+	_closeDialog: function() {
+		this.setState( {showDialog: false } );
 	},
 	render: function() {
 		return (
@@ -26,7 +42,13 @@ var App = React.createClass({
 					onUserInput={this.handleUserInput}
 				/>
 				<PhotoFrame 
+					id='frame'
 					searchText={this.state.searchText}
+				/>
+				<NewDialog 
+					showDialog={this._showDialog} 
+					closeDialog={this._closeDialog}
+					dialogState={this.state.showDialog}
 				/>
 			</div>
 		);
