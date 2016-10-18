@@ -23,7 +23,8 @@ var NewDialog = React.createClass({
 			that.setState({
 				comments: photoData.comments,
 				image: photoData.bigImage,
-				caption: photoData.caption
+				caption: photoData.caption,
+				likes: photoData.likes
 			});
 		});
 	},
@@ -35,7 +36,8 @@ var NewDialog = React.createClass({
 		};
 	},
 	render: function() {
-		var comments = [];
+		var title = this.state.likes + " : " + this.state.caption;
+
 		return (
 			<div>
 			<Dialog
@@ -45,7 +47,7 @@ var NewDialog = React.createClass({
 			type={ DialogType.normal }
 			onDismiss={ this.props.closeDialog }
 			isDarkOverlay={ true }
-			title={this.state.caption}
+			title={title}
 			subText=''
 			isBlocking={ false }
 			containerClassName='dialogOverlay'
@@ -58,16 +60,10 @@ var NewDialog = React.createClass({
 			    	</div>
 			    </div>
 			    <div className="ms-Grid-col ms-u-sm6">
-			    	<CommentsBox comments={this.state.comments}/>
+			    	<CommentsBox comments={this.state.comments} />
 			    </div>
 			  </div>
 			</div>
-			
-
-			<DialogFooter>
-			<Button buttonType={ ButtonType.primary } onClick={this.props.closeDialog}>Save</Button>
-			<Button onClick={this.props.closeDialog}>Cancel</Button>
-			</DialogFooter>
 			</Dialog>
 			</div>
 			);

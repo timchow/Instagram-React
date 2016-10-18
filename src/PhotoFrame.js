@@ -1,4 +1,6 @@
 var React = require('react');
+var OF = require('office-ui-fabric-react');
+
 var Photo = require('./Photo.js');
 var InstagramService = require('./InstagramService.js');
 
@@ -53,6 +55,11 @@ var PhotoFrame = React.createClass({
     render: function() {
         var photos = [];
         
+        var photoFrameStyle={
+            margin: '0 auto',
+            'text-align': 'center'
+        }
+
         this.state.media.forEach(function(media){
             var imageUrl = media.images.low_resolution.url;
             var bigImageUrl = media.images.standard_resolution.url;
@@ -72,12 +79,10 @@ var PhotoFrame = React.createClass({
         });
 
         return (
-            <div>
-            <table>
-            <thead>
-            </thead>
-            <tbody>{photos}</tbody>
-            </table>
+            <div className='photoFrame' style={photoFrameStyle}>
+                <ul style={photoFrameStyle}>
+                    {photos}
+                </ul>
             </div>
             );
     }

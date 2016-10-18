@@ -6,15 +6,16 @@ var Photo = React.createClass({
 
     showDialog: function() {
     	// Retrieve comments/likes
-    	// Trigger event and pass data to dialog
     	var that = this;
     	InstagramService.getComments(this.props.media_id).then(function(res) {
     		console.log(res)
+            // Passing photo data to dialog
     		$(window).trigger('beans', 
 	        	{
 	        		comments: res.data,
 	        		bigImage: that.props.bigImage,
-                    caption: that.props.caption
+                    caption: that.props.caption,
+                    likes: that.props.likes
 	        	}
         	);
     	});
@@ -26,18 +27,17 @@ var Photo = React.createClass({
         };
     },
     render: function() {
-
+        var photoStyle = {
+            display: 'inline-block',
+            'width': '30%',
+            'padding': '20px'
+        };
         return (
-        	<tr>
-        		<td>
+                <li style={photoStyle}>
         			<div>
         				<a onClick={this.showDialog}><img src={this.props.imageUrl} className='photoOnFrame'></img></a>
         			</div>
-        			<div>
-        				<p>{this.props.caption} - {this.props.likes}</p>
-        			</div>
-        		</td>
-        	</tr>
+                </li>
         );
     }
 });
