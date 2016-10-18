@@ -14,7 +14,7 @@ var path = {
 	OUT: 'app.js',
 	DEST: 'build',
 	DEST_SRC: 'src',
-	ENTRY_POINT: './src/App.js'
+	ENTRY_POINT: './src/Index.js'
 };
 
 // Copying index.html from src to dist so it can reference the transformed JS
