@@ -21,11 +21,12 @@ var App = React.createClass({
 			});
 		});
 	},
-	handleUserInput: function(a) {
+	handleUserInput: function(user_name) {
 		this.setState({
-			searchText: a
+			searchText: user_name
 		}, function() {
 			$('#bar').trigger('search');
+			//window.location.href = "/user/"+user_name;
 		});
 	},
 	_showDialog: function() {
