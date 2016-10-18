@@ -24,17 +24,11 @@ app.get('/userInfo', function(req, res, next) {
 	res.setHeader('Content-Type', 'application/json');		
 	var response = res;
 	var user_name = req.query.user_name;
+
 	var reqUrl = "https://www.instagram.com/"+user_name+"/?__a=1";
 	var body = "";
 
-	https.get(reqUrl, function(res) {
-		res.on('data', function (data) {
-			body += data;
-		});
-		res.on('end', function(){
-			response.send(body);
-		})
-	});
+	RequestAndRespond(reqUrl, response);
 });
 
 app.get('/media', function(req, res, next) {
@@ -45,14 +39,8 @@ app.get('/media', function(req, res, next) {
 
 	var reqUrl = "https://api.instagram.com/v1/users/"+user_id+"/media/recent/?access_token="+ACCESS_TOKEN+"&max_id="+max_id;
 	var body = "";
-	https.get(reqUrl, function(res) {
-		res.on('data', function (data) {
-			body += data;
-		});
-		res.on('end', function(){
-			response.send(body);
-		})
-	});
+	
+	RequestAndRespond(reqUrl, response);
 });
 
 // grabs 150 comments at most
@@ -63,17 +51,26 @@ app.get('/comments', function(req, res, next) {
 
 	var reqUrl = "https://api.instagram.com/v1/media/"+media_id+"/comments?access_token="+ACCESS_TOKEN;
 	var body = "";
-	https.get(reqUrl, function(res) {
+	
+	RequestAndRespond(reqUrl, response);
+});
+
+app.get('/user', function(req, res, next) {
+	var html = pug.renderFile(__dirname + '/index.pug'); 
+	res.send(html);
+});
+
+function RequestAndRespond(url, serverResponse) {
+	var body = "";
+	https.get(url, function(res) {
 		res.on('data', function (data) {
 			body += data;
 		});
 		res.on('end', function(){
-			response.send(body);
+			serverResponse.send(body);
 		})
 	});
-});
-
-
+};
 
 server.listen(8000);
 
