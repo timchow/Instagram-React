@@ -55,14 +55,18 @@ var PhotoFrame = React.createClass({
         
         this.state.media.forEach(function(media){
             var imageUrl = media.images.low_resolution.url;
+            var bigImageUrl = media.images.standard_resolution.url;
             var likes = media.likes.count;
             var caption = media.caption.text;
+            var media_id = media.id;
             //console.log(media)
             photos.push(
                 <Photo 
                     imageUrl={imageUrl}
                     likes={likes}
                     caption={caption}
+                    media_id={media_id}
+                    bigImage={bigImageUrl}
                 />
             );
         });
