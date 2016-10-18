@@ -55,6 +55,7 @@ app.get('/media', function(req, res, next) {
 	});
 });
 
+// grabs 150 comments at most
 app.get('/comments', function(req, res, next) {
 	res.setHeader('Content-Type', 'application/json');
 	var response = res;
