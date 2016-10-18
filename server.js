@@ -55,6 +55,22 @@ app.get('/media', function(req, res, next) {
 	});
 });
 
+app.get('/comments', function(req, res, next) {
+	res.setHeader('Content-Type', 'application/json');
+	var response = res;
+	var media_id = req.query.media_id;
+
+	var reqUrl = "https://api.instagram.com/v1/media/"+media_id+"/comments?access_token="+ACCESS_TOKEN;
+	var body = "";
+	https.get(reqUrl, function(res) {
+		res.on('data', function (data) {
+			body += data;
+		});
+		res.on('end', function(){
+			response.send(body);
+		})
+	});
+});
 
 
 
