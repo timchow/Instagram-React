@@ -1,10 +1,22 @@
 var React = require('react');
 var OfficeFabric = require('office-ui-fabric-react');
+var InstagramService = require('./InstagramService.js');
 
 var Photo = React.createClass({
 
     showDialog: function() {
-        $(window).trigger('beans', ['1','2']);
+    	// Retrieve comments/likes
+    	// Trigger event and pass data to dialog
+    	var that = this;
+    	InstagramService.getComments(this.props.media_id).then(function(res) {
+    		console.log(res)
+    		$(window).trigger('beans', 
+	        	{
+	        		comments: res.data,
+	        		bigImage: that.props.bigImage,
+	        	}
+        	);
+    	});
 
     },
     getInitialState: function() {
