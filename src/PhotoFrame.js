@@ -10,7 +10,7 @@ var PhotoFrame = React.createClass({
 
         InstagramService.getRecentUserMedia(user_id, max_id).then(function(res) {
             if (res.data.length == 0) {
-                console.log("No photos to load!");
+                alert("No more photos to load!");
                 return;
             }
 
@@ -64,7 +64,7 @@ var PhotoFrame = React.createClass({
             var imageUrl = media.images.low_resolution.url;
             var bigImageUrl = media.images.standard_resolution.url;
             var likes = media.likes.count;
-            var caption = media.caption.text;
+            var caption = media.caption ? media.caption.text : "";
             var media_id = media.id;
             //console.log(media)
             photos.push(

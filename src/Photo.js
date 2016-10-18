@@ -10,7 +10,7 @@ var Photo = React.createClass({
     	InstagramService.getComments(this.props.media_id).then(function(res) {
     		console.log(res)
             // Passing photo data to dialog
-    		$(window).trigger('beans', 
+    		$(window).trigger('photoClicked', 
 	        	{
 	        		comments: res.data,
 	        		bigImage: that.props.bigImage,
@@ -29,8 +29,8 @@ var Photo = React.createClass({
     render: function() {
         var photoStyle = {
             display: 'inline-block',
-            'width': '30%',
-            'padding': '20px'
+            width: '30%',
+            padding: '20px'
         };
         return (
                 <li style={photoStyle}>

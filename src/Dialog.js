@@ -18,7 +18,7 @@ var imgStyle = {
 var NewDialog = React.createClass({
 	componentDidMount: function() {
 		var that = this;
-		$(window).on('beans', function() {
+		$(window).on('photoClicked', function() {
 			var photoData = Array.prototype.slice.call(arguments,1)[0];
 			that.setState({
 				comments: photoData.comments,

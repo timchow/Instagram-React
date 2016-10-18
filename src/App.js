@@ -15,7 +15,7 @@ var App = React.createClass({
 	},
 	componentDidMount: function() {
 		var that = this;
-		$(window).on('beans', function() {
+		$(window).on('photoClicked', function() {
 			that.setState({
 				showDialog: true
 			});
