@@ -1,5 +1,6 @@
 var React = require('react');
 var Photo = require('./Photo.js');
+var CommentsBox = require('./CommentsBox.js');
 var OF = require('office-ui-fabric-react');
 
 var Button = OF.Button;
@@ -9,6 +10,11 @@ var Dialog = OF.Dialog;
 var DialogFooter = OF.DialogFooter;
 var DialogType = OF.DialogType;
 
+var imgStyle = {
+	width: '500px',
+	height: 'auto'
+};
+
 var NewDialog = React.createClass({
 	componentDidMount: function() {
 		var that = this;
@@ -17,6 +23,7 @@ var NewDialog = React.createClass({
 			that.setState({
 				comments: photoData.comments,
 				image: photoData.bigImage,
+				caption: photoData.caption
 			});
 		});
 	},
@@ -28,7 +35,6 @@ var NewDialog = React.createClass({
 		};
 	},
 	render: function() {
-
 		var comments = [];
 		return (
 			<div>
@@ -38,13 +44,26 @@ var NewDialog = React.createClass({
 			isOpen={ this.props.dialogState }
 			type={ DialogType.normal }
 			onDismiss={ this.props.closeDialog }
-			isDarkOverlay={true}
-			title='Instagram modal!'
-			subText='Subtext!'
+			isDarkOverlay={ true }
+			title={this.state.caption}
+			subText=''
 			isBlocking={ false }
 			containerClassName='dialogOverlay'
 			>
-			<img src={this.state.image} />
+			<div className="ms-Grid"> 
+			  <div className="ms-Grid-row">
+			    <div className="ms-Grid-col ms-u-sm6">
+			    	<div>
+			    		<img src={this.state.image} style={imgStyle} />
+			    	</div>
+			    </div>
+			    <div className="ms-Grid-col ms-u-sm6">
+			    	<CommentsBox comments={this.state.comments}/>
+			    </div>
+			  </div>
+			</div>
+			
+
 			<DialogFooter>
 			<Button buttonType={ ButtonType.primary } onClick={this.props.closeDialog}>Save</Button>
 			<Button onClick={this.props.closeDialog}>Cancel</Button>

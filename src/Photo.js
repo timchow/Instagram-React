@@ -14,6 +14,7 @@ var Photo = React.createClass({
 	        	{
 	        		comments: res.data,
 	        		bigImage: that.props.bigImage,
+                    caption: that.props.caption
 	        	}
         	);
     	});
@@ -30,7 +31,7 @@ var Photo = React.createClass({
         	<tr>
         		<td>
         			<div>
-        				<a href="#" onClick={this.showDialog}><img src={this.props.imageUrl}></img></a>
+        				<a onClick={this.showDialog}><img src={this.props.imageUrl} className='photoOnFrame'></img></a>
         			</div>
         			<div>
         				<p>{this.props.caption} - {this.props.likes}</p>
