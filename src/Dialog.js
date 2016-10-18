@@ -11,8 +11,13 @@ var DialogType = OF.DialogType;
 
 var NewDialog = React.createClass({
 	componentDidMount: function() {
+		var that = this;
 		$(window).on('beans', function() {
-			console.log(Array.prototype.slice.call(arguments,1));
+			var photoData = Array.prototype.slice.call(arguments,1)[0];
+			that.setState({
+				comments: photoData.comments,
+				image: photoData.bigImage,
+			});
 		});
 	},
 	getInitialState: function() {
@@ -24,6 +29,7 @@ var NewDialog = React.createClass({
 	},
 	render: function() {
 
+		var comments = [];
 		return (
 			<div>
 			<Dialog
@@ -36,9 +42,9 @@ var NewDialog = React.createClass({
 			title='Instagram modal!'
 			subText='Subtext!'
 			isBlocking={ false }
-			containerClassName='ms-dialogMainOverride'
+			containerClassName='dialogOverlay'
 			>
-
+			<img src={this.state.image} />
 			<DialogFooter>
 			<Button buttonType={ ButtonType.primary } onClick={this.props.closeDialog}>Save</Button>
 			<Button onClick={this.props.closeDialog}>Cancel</Button>
