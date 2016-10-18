@@ -1,4 +1,13 @@
 var React = require('react');
+var OF = require('office-ui-fabric-react');
+
+var SearchBox = OF.SearchBox;
+var Button = OF.Button;
+var ButtonType = OF.ButtonType;
+
+SearchBarStyle = {
+	width: '300px'
+};
 
 var SearchBar = React.createClass({
 	getInitialState: function () {
@@ -14,14 +23,13 @@ var SearchBar = React.createClass({
 	},
 	updateInput: function(ev) {
 		this.setState({
-			text: ev.target.value
+			text: ev
 		});
 	},
 	render: function() {
 		return (
-			<form onSubmit={this.handle} id="bar">
-				<input type="text" onChange={this.updateInput} value={this.state.text} ref="searchText"></input>
-				<input type="submit" value="Search"></input>
+			<form onSubmit={this.handle} id="bar" style={SearchBarStyle}>
+				<SearchBox type="text" onChange={this.updateInput} value={this.state.text} ref="searchText" />
 			</form>
 			);
 	}
