@@ -19,13 +19,13 @@ var Comments = React.createClass({
 				comment_id = comment.id;
 
 			comments.push(<Comment 
-								text={comment_text}
-								time={comment_time}
-								by_username={comment_by_username}
-								comment_by_userImage={comment_by_userImage}
-								comment_by_id={comment_by_id}
-								comment_id = {comment_id}
-							/>);
+							text={comment_text}
+							time={comment_time}
+							by_username={comment_by_username}
+							comment_by_userImage={comment_by_userImage}
+							comment_by_id={comment_by_id}
+							comment_id = {comment_id}
+						/>);
 
 		});
 		return (
