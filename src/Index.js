@@ -42,6 +42,7 @@ var Frame = React.createClass({
 	render: function() {
 		return (
 			<div>
+				<Search />
 				<PhotoFrame
 					user_name={this.props.routeParams.user_name}
 				/>
