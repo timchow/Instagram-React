@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
-var path    = require("path");
+var path = require("path");
 var https = require('https');
 var pug = require('pug');
 
@@ -26,7 +26,6 @@ app.get('/userInfo', function(req, res, next) {
 	var user_name = req.query.user_name;
 
 	var reqUrl = "https://www.instagram.com/"+user_name+"/?__a=1";
-	var body = "";
 
 	RequestAndRespond(reqUrl, response);
 });
@@ -38,7 +37,6 @@ app.get('/media', function(req, res, next) {
 		max_id = req.query.max_id
 
 	var reqUrl = "https://api.instagram.com/v1/users/"+user_id+"/media/recent/?access_token="+ACCESS_TOKEN+"&max_id="+max_id;
-	var body = "";
 	
 	RequestAndRespond(reqUrl, response);
 });
@@ -50,14 +48,8 @@ app.get('/comments', function(req, res, next) {
 	var media_id = req.query.media_id;
 
 	var reqUrl = "https://api.instagram.com/v1/media/"+media_id+"/comments?access_token="+ACCESS_TOKEN;
-	var body = "";
 	
 	RequestAndRespond(reqUrl, response);
-});
-
-app.get('/user', function(req, res, next) {
-	var html = pug.renderFile(__dirname + '/index.pug'); 
-	res.send(html);
 });
 
 function RequestAndRespond(url, serverResponse) {
