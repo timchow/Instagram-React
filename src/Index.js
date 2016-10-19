@@ -19,7 +19,7 @@ var Search = React.createClass({
 	}
 });
 
-var Frame = React.createClass({
+var UserFrame = React.createClass({
 	getInitialState: function() {
 		return {
 			showDialog: false
@@ -59,6 +59,6 @@ var Frame = React.createClass({
 ReactDOM.render((
   <Router>
     <Route path="/" component={Search} />
-    <Route path="user/:user_name" component={Frame} />
+    <Route path="user/:user_name" component={UserFrame} />
   </Router>
 ), document.getElementById('app'));
