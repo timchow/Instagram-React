@@ -9,10 +9,19 @@ var NewDialog = require('./Dialog.js');
 var Router = require('react-router').Router
 var Route = require('react-router').Route
 
-var App = React.createClass({
+var Search = React.createClass({
+	render: function() {
+		return (
+			<div>
+				<SearchBar />
+			</div>
+		);
+	}
+});
+
+var Frame = React.createClass({
 	getInitialState: function() {
 		return {
-			searchText: '',
 			showDialog: false
 		};
 	},
@@ -24,14 +33,6 @@ var App = React.createClass({
 			});
 		});
 	},
-	handleUserInput: function(user_name) {
-		this.setState({
-			searchText: user_name
-		}, function() {
-			$('#bar').trigger('search');
-			//window.location.href = "/user/"+user_name;
-		});
-	},
 	_showDialog: function() {
 		this.setState( {showDialog: true } );
 	},
@@ -41,13 +42,8 @@ var App = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<SearchBar 
-					searchText={this.state.searchText}
-					onUserInput={this.handleUserInput}
-				/>
-				<PhotoFrame 
-					id='frame'
-					searchText={this.state.searchText}
+				<PhotoFrame
+					user_name={this.props.routeParams.user_name}
 				/>
 				<NewDialog 
 					showDialog={this._showDialog} 
@@ -61,7 +57,7 @@ var App = React.createClass({
 
 ReactDOM.render((
   <Router>
-    <Route path="/" component={App} />
-    <Route path="/users" component={App} />
+    <Route path="/" component={Search} />
+    <Route path="user/:user_name" component={Frame} />
   </Router>
 ), document.getElementById('app'));
