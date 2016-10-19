@@ -4,13 +4,17 @@ var OF = require('office-ui-fabric-react');
 var Photo = require('./Photo.js');
 var InstagramService = require('./InstagramService.js');
 
+var photoFrameStyle={
+    margin: '0 auto',
+    'text-align': 'center'
+}
+
 var PhotoFrame = React.createClass({
     retrievePhotos: function(user_id, max_id) {
         var that = this;
-
+        
         InstagramService.getRecentUserMedia(user_id, max_id).then(function(res) {
             if (res.data.length == 0) {
-                alert("No more photos to load!");
                 return;
             }
 
@@ -34,30 +38,27 @@ var PhotoFrame = React.createClass({
         return {
             media: [],
             max_id: null,
-            user_id: null
+            user_id: null,
+            shouldSpin: true
         };
     },
     componentDidMount: function() {
+        //this.setState({shouldSpin: true});
+
         var that = this;
         var user_name = this.props.user_name;
-        
+
         InstagramService.getUserInfo(user_name).then(function(res) {
             that.setState(that.getInitialState());
             that.retrievePhotos(res.user.id);
-            that.retrieveMorePhotosOnScroll();
+            //that.retrieveMorePhotosOnScroll();
         });
     },
     componentWillUnmount: function() {
-        $('#bar').off('search');
         $(window).off('scroll');
     },
     render: function() {
         var photos = [];
-        
-        var photoFrameStyle={
-            margin: '0 auto',
-            'text-align': 'center'
-        }
 
         this.state.media.forEach(function(media){
             var imageUrl = media.images.low_resolution.url;
@@ -65,7 +66,7 @@ var PhotoFrame = React.createClass({
             var likes = media.likes.count;
             var caption = media.caption ? media.caption.text : "";
             var media_id = media.id;
-            //console.log(media)
+
             photos.push(
                 <Photo 
                     imageUrl={imageUrl}
@@ -78,7 +79,7 @@ var PhotoFrame = React.createClass({
         });
 
         return (
-            <div className='photoFrame' style={photoFrameStyle}>
+            <div className='photoFrame'>
                 <ul style={photoFrameStyle}>
                     {photos}
                 </ul>
