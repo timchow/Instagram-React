@@ -22,6 +22,7 @@
     "pug": "^2.0.0-beta4",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-router": "^2.8.1",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
