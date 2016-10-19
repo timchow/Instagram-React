@@ -1,10 +1,13 @@
 var ReactDOM = require('react-dom');
 var React = require('react');
+//var Router = require('react-router');
  
 var SearchBar = require('./SearchBar');
 var PhotoFrame = require('./PhotoFrame');
 var NewDialog = require('./Dialog.js');
- 
+
+var Router = require('react-router').Router
+var Route = require('react-router').Route
 
 var App = React.createClass({
 	getInitialState: function() {
@@ -56,7 +59,9 @@ var App = React.createClass({
 	}
 });
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('app')
-);
+ReactDOM.render((
+  <Router>
+    <Route path="/" component={App} />
+    <Route path="/users" component={App} />
+  </Router>
+), document.getElementById('app'));
