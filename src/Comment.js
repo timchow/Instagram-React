@@ -11,9 +11,7 @@ var Comment = React.createClass({
 		return (
 			<tr>
         		<td>
-        			<div>
-        				{this.props.by_username}: {this.props.text}
-        			</div>
+        			{this.props.by_username}: {this.props.text}
         		</td>
         	</tr>
 			);
