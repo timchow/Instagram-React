@@ -1,13 +1,13 @@
 var React = require('react');
 var OF = require('office-ui-fabric-react');
-var Router = require('react-router').Router
 
 var SearchBox = OF.SearchBox;
 var Button = OF.Button;
 var ButtonType = OF.ButtonType;
 
 SearchBarStyle = {
-	width: '300px'
+	width: '300px',
+	zIndex: '0'
 };
 
 var SearchBar = React.createClass({
@@ -25,7 +25,7 @@ var SearchBar = React.createClass({
 		var url = "#/user/"+this.state.text;
 		return (
 			<form id="bar" style={SearchBarStyle} action={url}>
-				<SearchBox type="text" onChange={this.updateInput} value={this.state.text} ref="searchText" />
+				<SearchBox type="text" onChange={this.updateInput} value={this.state.text} ref="searchText" labelText="Search Username" />
 			</form>
 			);
 	}
