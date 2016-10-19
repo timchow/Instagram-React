@@ -39,14 +39,13 @@ var PhotoFrame = React.createClass({
     },
     componentDidMount: function() {
         var that = this;
-        $('#bar').on('search', function(e) {
-            var user_name = this.props.searchText;
-            InstagramService.getUserInfo(user_name).then(function(res) {
-                that.setState(that.getInitialState());
-                that.retrievePhotos(res.user.id);
-                that.retrieveMorePhotosOnScroll();
-            });
-        }.bind(this));
+        var user_name = this.props.user_name;
+        
+        InstagramService.getUserInfo(user_name).then(function(res) {
+            that.setState(that.getInitialState());
+            that.retrievePhotos(res.user.id);
+            that.retrieveMorePhotosOnScroll();
+        });
     },
     componentWillUnmount: function() {
         $('#bar').off('search');
