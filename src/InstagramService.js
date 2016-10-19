@@ -7,7 +7,7 @@ var InstagramService = (function() {
 	};
 
 	/* Returns a promise that returns the user id for a given {user_name} */
-	
+
 	function getUserId (user_name) {
 		var options = {
 			url: '/userInfo',
@@ -56,13 +56,13 @@ var InstagramService = (function() {
 
 	function getAllUserMedia (user_id, max_id, _result) {
 		var _result = (_result !== undefined) ? _result : [];
-
+		console.log(max_id)
 		if (max_id == 'done') {
 			return _result;
 		}
 
 		return getRecentUserMedia(user_id, max_id).then(function(res) {
-			var new_items = res.data,
+			var new_items = res,
 				new_max_id = 'done';
 
 			_result = _result.concat(new_items);
