@@ -5,10 +5,8 @@ var InstagramService = require('./InstagramService.js');
 var Photo = React.createClass({
 
     showDialog: function() {
-    	// Retrieve comments/likes
     	var that = this;
     	InstagramService.getComments(this.props.media_id).then(function(res) {
-    		console.log(res)
             // Passing photo data to dialog
     		$(window).trigger('photoClicked', 
 	        	{
@@ -28,16 +26,12 @@ var Photo = React.createClass({
     },
     render: function() {
         var photoStyle = {
-            display: 'inline-block',
-            width: '30%',
-            padding: '20px'
+            padding: '30px 0px'
         };
         return (
-                <li style={photoStyle}>
-        			<div>
-        				<a onClick={this.showDialog}><img src={this.props.imageUrl} className='photoOnFrame'></img></a>
-        			</div>
-                </li>
+            <div className="ms-Grid-col ms-u-sm3" style={photoStyle}>
+                <a onClick={this.showDialog}><img src={this.props.imageUrl} className='photoOnFrame'></img></a>
+            </div>
         );
     }
 });

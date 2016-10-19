@@ -5,16 +5,18 @@ var Photo = require('./Photo.js');
 var InstagramService = require('./InstagramService.js');
 
 var photoFrameStyle={
-    margin: '0 auto',
-    'text-align': 'center'
-}
+    marginLeft: '50px',
+};
 
 var PhotoFrame = React.createClass({
     retrievePhotos: function(user_id, max_id) {
         var that = this;
         
         InstagramService.getRecentUserMedia(user_id, max_id).then(function(res) {
-            if (res.length == 0) {
+            if (res == undefined){
+                alert('Private user');
+            }
+            else if (res.length == 0) {
                 return;
             }
 
@@ -39,12 +41,9 @@ var PhotoFrame = React.createClass({
             media: [],
             max_id: null,
             user_id: null,
-            shouldSpin: true
         };
     },
     componentDidMount: function() {
-        //this.setState({shouldSpin: true});
-
         var that = this;
         var user_name = this.props.user_name;
 
@@ -79,10 +78,10 @@ var PhotoFrame = React.createClass({
         });
 
         return (
-            <div className='photoFrame'>
-                <ul style={photoFrameStyle}>
+            <div className="ms-Grid" style={photoFrameStyle}> 
+                <div className="ms-Grid-row">
                     {photos}
-                </ul>
+                </div>
             </div>
             );
     }
