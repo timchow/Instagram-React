@@ -14,13 +14,13 @@ var PhotoFrame = React.createClass({
         var that = this;
         
         InstagramService.getRecentUserMedia(user_id, max_id).then(function(res) {
-            if (res.data.length == 0) {
+            if (res.length == 0) {
                 return;
             }
 
             that.setState({
-                media: that.state.media.concat(res.data),
-                max_id: res.data[res.data.length-1].id,
+                media: that.state.media.concat(res),
+                max_id: res[res.length-1].id,
                 user_id: user_id
             });
         });
@@ -48,10 +48,10 @@ var PhotoFrame = React.createClass({
         var that = this;
         var user_name = this.props.user_name;
 
-        InstagramService.getUserInfo(user_name).then(function(res) {
+        InstagramService.getUserId(user_name).then(function(res) {
             that.setState(that.getInitialState());
-            that.retrievePhotos(res.user.id);
-            //that.retrieveMorePhotosOnScroll();
+            that.retrievePhotos(res);
+            that.retrieveMorePhotosOnScroll();
         });
     },
     componentWillUnmount: function() {

@@ -12,7 +12,7 @@ var Photo = React.createClass({
             // Passing photo data to dialog
     		$(window).trigger('photoClicked', 
 	        	{
-	        		comments: res.data,
+	        		comments: res,
 	        		bigImage: that.props.bigImage,
                     caption: that.props.caption,
                     likes: that.props.likes

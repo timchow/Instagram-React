@@ -1,12 +1,14 @@
 var InstagramService = (function() {
 	return {
-		getUserInfo: getUserInfo,
+		getUserId: getUserId,
 		getRecentUserMedia: getRecentUserMedia,
 		getComments: getComments,
 		getAllUserMedia: getAllUserMedia
 	};
 
-	function getUserInfo (user_name) {
+	/* Returns a promise that returns the user id for a given {user_name} */
+	
+	function getUserId (user_name) {
 		var options = {
 			url: '/userInfo',
 			data: {
@@ -14,8 +16,12 @@ var InstagramService = (function() {
 			}
 		};
 
-		return $.ajax(options);
+		return $.ajax(options).then(function(res) {
+			return res.user.id;
+		});
 	};
+
+	/* Returns a promise that returns at most 20 media objects for a given {user_id} */
 
 	function getRecentUserMedia (user_id, max_id) {
 		var options = {
@@ -26,8 +32,12 @@ var InstagramService = (function() {
 			}
 		};
 
-		return $.ajax(options);
+		return $.ajax(options).then(function(res) {
+			return res.data;
+		});
 	};
+
+	/* Returns a promise that returns at most 150 comments for a given {media_id} */
 
 	function getComments (media_id) {
 		var options = {
@@ -37,8 +47,12 @@ var InstagramService = (function() {
 			}
 		};
 
-		return $.ajax(options);
+		return $.ajax(options).then(function(res) {
+			return res.data;
+		});
 	};
+
+	/* Returns a promise that returns all media for a given {user_id} */
 
 	function getAllUserMedia (user_id, max_id, _result) {
 		var _result = (_result !== undefined) ? _result : [];
