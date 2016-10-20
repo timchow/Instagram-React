@@ -10,23 +10,32 @@ Array.prototype.sum = function (prop) {
 }
 
 var Insights = React.createClass({
+	getTopNLikers: function(likers, n) {
+		var topLikers = [];
+
+		for (var likes in likers) {
+			topLikers.push([likes, likers[likes]]);
+		}
+
+		topLikers.sort(function(a, b) {return b[1] - a[1]});
+		
+		return topLikers.slice(0,n);
+	},
 	componentDidMount: function() {
-		var that = this;
-		var user_name = this.props.routeParams.user_name;
+		var that = this,
+			user_name = this.props.routeParams.user_name;
+
 		InstagramService.getUserId(user_name).then(function(res) {
 			InstagramService.getAllUserMedia(res).then(function(res) {
 				var photos = res;
 				var users = {};
-				var sum = 0;
 				photos.forEach(function(photo) {
 					InstagramService.getLikes(photo.id).then(function(res) {
 						res.forEach(function(user) {
 							var user_name = user.username;
 							users[user_name] = (users[user_name] || 0) + 1;
-							
 						});
-						
-						that.setState({biggestFans: users});
+						that.setState({likers: users});
 					});
 				});
 			});
@@ -34,32 +43,17 @@ var Insights = React.createClass({
 	},
 	getInitialState: function() {
 		return {
-			biggestFans: {},
+			likers: {},
 			sum: 0
 		};
 	},
 	render: function() {
-		// TODO: Clean this crap up
-		var result = [];
-		var fans = this.state.biggestFans;
-		for (var likes in fans)
-			result.push([likes, fans[likes]])
-
-		result.sort(
-			function(a, b) {
-				return b[1] - a[1]
-			}
-		)
-		
-		var topUsers = [];
-
-		result.slice(0,10).forEach(function(res) {
-			topUsers.push(<div>{res[0]} - {res[1]}</div>);
-		});
+		var topLikers = this.getTopNLikers(this.state.likers, 10),
+			likers = topLikers.map(function(liker) {return <div>{liker[0]} - {liker[1]}</div>});
 
 		return (
 				<ul>
-					{topUsers}
+					{likers}
 				</ul>
 			);
 	}

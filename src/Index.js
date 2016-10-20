@@ -7,9 +7,10 @@ var NewDialog = require('./Dialog.js');
 var Statistics = require('./Statistics.js');
 var Insights = require('./Insights.js');
 
-var Router = require('react-router').Router
+var Router = require('react-router').Router;
 var browserHistory = require('react-router').browserHistory;
-var Route = require('react-router').Route
+var Route = require('react-router').Route;
+var Link = require('react-router').Link;
 
 var Search = React.createClass({
 	render: function() {
@@ -49,26 +50,28 @@ var UserFrame = React.createClass({
 		this.setState( {showDialog: false } );
 	},
 	render: function() {
+		var insightsUrl = "/user/"+this.props.routeParams.user_name+"/insights";
 		return (
 			<div className="ms-Grid"> 
 				<div className="ms-Grid-row">
-					<div className="ms-Grid-col ms-u-sm6">
+					<div className="ms-Grid-col ms-u-sm6 ig-search">
 						<Search indexStyle={{}} />
 					</div>
 					<div className="ms-Grid-col ms-u-sm6">
 						<div className="ms-Grid"> 
 						  <div className="ms-Grid-row">
-						    <div className="ms-Grid-col ms-u-sm6">
+						    <div className="ms-Grid-col ms-u-sm6 ig-statistics">
 						    	<Statistics user_name={this.props.routeParams.user_name} />
 						    </div>
-						    <div className="ms-Grid-col ms-u-sm6">
+						    <div className="ms-Grid-col ms-u-sm6 ig-insights">
+						    	<Link to={insightsUrl} >{"User insights!"}</Link>
 						    </div>
 						  </div>
 						</div>
 					</div>
 				</div>
 				<div className="ms-Grid-row">
-					<div className="ms-Grid-col ms-u-sm12">
+					<div className="ms-Grid-col ms-u-sm12 ig-photoFrame">
 						<PhotoFrame
 							user_name={this.props.routeParams.user_name}
 						/>
