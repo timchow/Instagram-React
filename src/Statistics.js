@@ -9,7 +9,7 @@ Array.prototype.sum = function (prop) {
     return total;
 }
 
-var TotalLikes = React.createClass({
+var Statistics = React.createClass({
 	componentDidMount: function() {
 		var that = this;
 		var user_name = this.props.user_name
@@ -35,6 +35,4 @@ var TotalLikes = React.createClass({
 	}
 });
 
-
-
-module.exports = TotalLikes;
+module.exports = Statistics;
