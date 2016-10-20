@@ -2,5 +2,5 @@
 
 An implementation of an Instagram Viewer using 
 
--ReactJS
--ExpressJS
+- ReactJS
+- ExpressJS
