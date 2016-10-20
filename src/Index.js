@@ -88,9 +88,9 @@ var UserFrame = React.createClass({
 });
 
 ReactDOM.render((
-  <Router history={browserHistory}>
-    <Route path="/" component={Search} />
-    <Route path="/user/:user_name" component={UserFrame} />
-    <Route path="/user/:user_name/insights" component={Insights} />
-  </Router>
+	<Router history={browserHistory}>
+		<Route path="/" component={Search} />
+		<Route path="/user/:user_name" component={UserFrame} />
+		<Route path="/user/:user_name/insights" component={Insights} />
+	</Router>
 ), document.getElementById('app'));

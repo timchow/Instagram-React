@@ -1,6 +1,6 @@
 var React = require('react');
-var Comment = require('./Comment.js');
-
+//var Comment = require('./Comment.js');
+import Comment from './Comment.js'
 var Comments = React.createClass({
 	componentDidMount: function() {
 	},
@@ -30,7 +30,9 @@ var Comments = React.createClass({
 		});
 		return (
 			<div>
+				<ul>
 				{comments}
+				</ul>
 			</div>
 			);
 	}
