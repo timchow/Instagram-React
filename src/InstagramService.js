@@ -3,6 +3,7 @@ var InstagramService = (function() {
 		getUserId: getUserId,
 		getRecentUserMedia: getRecentUserMedia,
 		getComments: getComments,
+		getLikes: getLikes,
 		getAllUserMedia: getAllUserMedia
 	};
 
@@ -51,6 +52,19 @@ var InstagramService = (function() {
 			return res.data;
 		});
 	};
+
+	function getLikes (media_id) {
+		var options = {
+			url: '/likes',
+			data: {
+				media_id: media_id
+			}
+		};
+
+		return $.ajax(options).then(function(res) {
+			return res.data;
+		});
+	}
 
 	/* Returns a promise that returns all media for a given {user_id} */
 
