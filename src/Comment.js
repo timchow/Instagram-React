@@ -1,3 +1,4 @@
+/*
 var React = require('react');
 
 var Comment = React.createClass({
@@ -17,5 +18,17 @@ var Comment = React.createClass({
 			);
 	}
 });
+*/
+import React from 'react';
 
-module.exports = Comment;
+class Comment extends React.Component {
+	render() {
+	    return (	
+	    		<li>
+        			{this.props.by_username}: {this.props.text}
+        		</li>
+			);
+  	}
+}
+
+export default Comment;
