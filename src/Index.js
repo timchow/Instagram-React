@@ -4,9 +4,11 @@ var React = require('react');
 var SearchBar = require('./SearchBar');
 var PhotoFrame = require('./PhotoFrame');
 var NewDialog = require('./Dialog.js');
-var TotalLikes = require('./TotalLikes.js');
+var Statistics = require('./Statistics.js');
+var Insights = require('./Insights.js');
 
 var Router = require('react-router').Router
+var browserHistory = require('react-router').browserHistory;
 var Route = require('react-router').Route
 
 var Search = React.createClass({
@@ -57,7 +59,7 @@ var UserFrame = React.createClass({
 						<div className="ms-Grid"> 
 						  <div className="ms-Grid-row">
 						    <div className="ms-Grid-col ms-u-sm6">
-						    	<TotalLikes user_name={this.props.routeParams.user_name} />
+						    	<Statistics user_name={this.props.routeParams.user_name} />
 						    </div>
 						    <div className="ms-Grid-col ms-u-sm6">
 						    </div>
@@ -83,8 +85,9 @@ var UserFrame = React.createClass({
 });
 
 ReactDOM.render((
-  <Router>
+  <Router history={browserHistory}>
     <Route path="/" component={Search} />
-    <Route path="user/:user_name" component={UserFrame} />
+    <Route path="/user/:user_name" component={UserFrame} />
+    <Route path="/user/:user_name/insights" component={Insights} />
   </Router>
 ), document.getElementById('app'));
