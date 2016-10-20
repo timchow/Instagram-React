@@ -18,6 +18,11 @@ app.get('/', function(req, res, next) {
 	res.send(html);
 });
 
+app.get('/user/*', function (req, res){
+	var html = pug.renderFile(__dirname + '/index.pug'); 
+	res.send(html);
+})
+
 // Creating own Instagram wrapper for user info
 // Couldn't bypass the cross domain origin issue - this is the alternative
 app.get('/userInfo', function(req, res, next) {
@@ -48,6 +53,16 @@ app.get('/comments', function(req, res, next) {
 	var media_id = req.query.media_id;
 
 	var reqUrl = "https://api.instagram.com/v1/media/"+media_id+"/comments?access_token="+ACCESS_TOKEN;
+	
+	RequestAndRespond(reqUrl, response);
+});
+
+app.get('/likes', function(req, res, next) {
+	res.setHeader('Content-Type', 'application/json');
+	var response = res;
+	var media_id = req.query.media_id;
+
+	var reqUrl = "https://api.instagram.com/v1/media/"+media_id+"/likes?access_token="+ACCESS_TOKEN;
 	
 	RequestAndRespond(reqUrl, response);
 });
