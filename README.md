@@ -1,3 +1,6 @@
 # Instagram-React
 
-An implementation of an Instagram Viewer using ReactJS and nodeJS
+An implementation of an Instagram Viewer using 
+
+-ReactJS
+-ExpressJS
