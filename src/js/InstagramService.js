@@ -1,6 +1,8 @@
 var InstagramService = (function() {
 	return {
 		getUserId: getUserId,
+		getUserFullName: getUserFullName,
+		getUserProfilePicture: getUserProfilePicture,
 		getRecentUserMedia: getRecentUserMedia,
 		getComments: getComments,
 		getLikes: getLikes,
@@ -21,6 +23,32 @@ var InstagramService = (function() {
 			return res.user.id;
 		});
 	};
+
+	function getUserFullName (user_name) {
+		var options = {
+			url: '/userInfo',
+			data: {
+				user_name: user_name
+			}
+		};
+
+		return $.ajax(options).then(function(res) {
+			return res.user.full_name;
+		});
+	}
+
+	function getUserProfilePicture (user_name) {
+		var options = {
+			url: '/userInfo',
+			data: {
+				user_name: user_name
+			}
+		};
+
+		return $.ajax(options).then(function(res) {
+			return res.user.profile_pic_url;
+		});
+	}
 
 	/* Returns a promise that returns at most 20 media objects for a given {user_id} */
 
