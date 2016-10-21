@@ -26,7 +26,7 @@ var SearchBar = React.createClass({
 
 		return (
 			<form id="bar" style={SearchBarStyle} action={`/user/${this.state.text}`} method='GET'>
-				<SearchBox type="text" onChange={this.updateInput} value={this.state.text} ref="searchText" labelText="Search Username" />
+				<SearchBox type="text" onChange={this.updateInput} value={this.state.text} ref="searchText" labelText={this.props.label} />
 			</form>
 			);
 	}
