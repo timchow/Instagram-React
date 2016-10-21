@@ -4,10 +4,6 @@ var OF = require('office-ui-fabric-react');
 var Photo = require('./Photo.js');
 var InstagramService = require('./InstagramService.js');
 
-var photoFrameStyle={
-    marginLeft: '50px',
-};
-
 var PhotoFrame = React.createClass({
     retrievePhotos: function(user_id, max_id) {
         var that = this;
@@ -78,7 +74,7 @@ var PhotoFrame = React.createClass({
         });
 
         return (
-            <div className="ms-Grid" style={photoFrameStyle}> 
+            <div className="ms-Grid" > 
                 <div className="ms-Grid-row">
                     {photos}
                 </div>
