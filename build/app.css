@@ -13,3 +13,14 @@
 .ms-SearchBox {
   z-index: 0;
 }
+.statsIcons {
+  color: #a80000;
+  position: relative;
+  top: 3px;
+}
+.ms-Spinner {
+  display: inline-block;
+}
+.ig-search-bar {
+  text-align: right;
+}
