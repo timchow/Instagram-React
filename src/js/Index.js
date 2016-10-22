@@ -4,7 +4,7 @@ var React = require('react');
 var SearchBar = require('./SearchBar');
 var PhotoFrame = require('./PhotoFrame');
 var NewDialog = require('./Dialog.js');
-var InsightsView = require('./Insights.js');
+var InsightsView = require('./InsightsView.js');
 var UserView = require('./UserView.js')
 
 var Router = require('react-router').Router;

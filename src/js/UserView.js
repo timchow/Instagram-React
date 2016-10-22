@@ -3,7 +3,7 @@ var React = require('react');
 var SearchBar = require('./SearchBar');
 var PhotoFrame = require('./PhotoFrame');
 var NewDialog = require('./Dialog.js');
-var InsightsView = require('./Insights.js');
+var InsightsView = require('./InsightsView.js');
 
 import {Panel, PanelType} from 'office-ui-fabric-react';
 import {Router, Route, Link} from 'react-router';

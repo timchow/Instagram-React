@@ -7,7 +7,7 @@ import Stats from './Stats';
 class UserBox extends React.Component {
 	constructor() {
 		super();
-    	this.state = { full_name: '', profile_picture: '' }
+    	this.state = { full_name: '', profile_picture: '', biography:'' }
   	}
 
 	componentDidMount() {
@@ -20,6 +20,9 @@ class UserBox extends React.Component {
 		InstagramService.getUserProfilePicture(user_name).then(function(res) {
 			that.setState( {profile_picture: res} );
 		});
+		InstagramService.getUserBiography(user_name).then(function(res) {
+			that.setState( {biography: res} );
+		});
 	}
 	render() {
 	    return (	
@@ -28,7 +31,7 @@ class UserBox extends React.Component {
 	    				<div className="ms-Grid-col ms-u-sm4 ig-user-photo">
 	    					<img src={this.state.profile_picture} />
 	    				</div>
-	    				<div className="ms-Grid-col ms-u-sm8">
+	    				<div className="ms-Grid-col ms-u-sm5">
 	    					<div className="ms-Grid"> 
 								<div className="ms-Grid-row">
 									<div className="ms-Grid-col ms-u-sm12 ig-user-fullname">
@@ -50,6 +53,9 @@ class UserBox extends React.Component {
 									</Button>	
 								</div>
 							</div>
+	    				</div>
+	    				<div className="ms-Grid-col ms-u-sm3">
+	    					{this.state.biography}
 	    				</div>
 	    			</div>
         		</div>

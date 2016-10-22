@@ -3,6 +3,7 @@ var InstagramService = (function() {
 		getUserId: getUserId,
 		getUserFullName: getUserFullName,
 		getUserProfilePicture: getUserProfilePicture,
+		getUserBiography: getUserBiography,
 		getRecentUserMedia: getRecentUserMedia,
 		getComments: getComments,
 		getLikes: getLikes,
@@ -47,6 +48,19 @@ var InstagramService = (function() {
 
 		return $.ajax(options).then(function(res) {
 			return res.user.profile_pic_url;
+		});
+	}
+
+	function getUserBiography(user_name) {
+		var options = {
+			url: '/userInfo',
+			data: {
+				user_name: user_name
+			}
+		};
+
+		return $.ajax(options).then(function(res) {
+			return res.user.biography;
 		});
 	}
 
