@@ -23,6 +23,7 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-router": "^2.8.1",
+    "recharts": "^0.15.2",
     "vinyl-source-stream": "^1.1.0"
   }
 }
