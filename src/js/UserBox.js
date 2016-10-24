@@ -14,14 +14,12 @@ class UserBox extends React.Component {
 		var that = this,
 			user_name = this.props.user_name;
 
-		InstagramService.getUserFullName(user_name).then(function(res) {
-			that.setState( { full_name: res } );
-		});
-		InstagramService.getUserProfilePicture(user_name).then(function(res) {
-			that.setState( {profile_picture: res} );
-		});
-		InstagramService.getUserBiography(user_name).then(function(res) {
-			that.setState( {biography: res} );
+		InstagramService.getUserInfo(user_name).then(function(res) {
+			that.setState({ 
+				full_name: res.full_name,
+				profile_picture: res.profile_pic_url,
+				biography: res.biography
+			});
 		});
 	}
 	render() {
@@ -31,11 +29,11 @@ class UserBox extends React.Component {
 	    				<div className="ms-Grid-col ig-user-photo">
 	    					<img src={this.state.profile_picture} />
 	    				</div>
-	    				<div className="ms-Grid-col ms-u-sm5">
+	    				<div className="ms-Grid-col">
 	    					<div className="ms-Grid"> 
 								<div className="ms-Grid-row">
 									<div className="ms-Grid-col ms-u-sm12 ig-user-fullname">
-										<i className="ms-Icon ms-Icon--Contact statsIcons" aria-hidden="true"></i>   {this.state.full_name}
+										<i className="ms-Icon ms-Icon--Contact statsIcons" aria-hidden="true"></i>   {this.state.full_name.slice(0,20)}
 									</div>
 								</div>
 								<div className="ms-Grid-row">

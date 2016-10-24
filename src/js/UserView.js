@@ -49,11 +49,8 @@ var UserView = React.createClass({
 					            <div className="ms-Grid-col ms-u-sm8 ig-user-bar ms-font-xxl">
 					                <div className="ms-Grid">
 					                    <div className="ms-Grid-row">
-					                        <div className="ms-Grid-col ms-u-sm6 ig-userinfo-bar">
+					                        <div className="ms-Grid-col ms-u-sm12 ig-userinfo-bar">
 					                            <UserBox user_name={user_name} showPanel={this._showPanel} />
-					                        </div>
-					                        <div className="ms-Grid-col ms-u-sm6">
-					                            
 					                        </div>
 					                    </div>
 					                </div>

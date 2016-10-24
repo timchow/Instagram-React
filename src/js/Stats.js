@@ -15,8 +15,8 @@ var Stats = React.createClass({
 		var that = this;
 		var user_name = this.props.user_name;
 
-		InstagramService.getUserId(user_name).then(function(res) {
-			InstagramService.getAllUserMedia(res).then(function(res) {
+		InstagramService.getUserInfo(user_name).then(function(res) {
+			InstagramService.getAllUserMedia(res.id).then(function(res) {
 				that.setState({
 					totalLikes: res.sum("likes"),
 					totalComments: res.sum("comments")

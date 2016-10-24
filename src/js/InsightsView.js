@@ -25,8 +25,8 @@ var Insights = React.createClass({
 		var that = this,
 			user_name = this.props.routeParams.user_name;
 
-		InstagramService.getUserId(user_name).then(function(res) {
-			InstagramService.getAllUserMedia(res).then(function(res) {
+		InstagramService.getUserInfo(user_name).then(function(res) {
+			InstagramService.getAllUserMedia(res.id).then(function(res) {
 				var photos = res;
 				var users = {};
 				photos.forEach(function(photo) {

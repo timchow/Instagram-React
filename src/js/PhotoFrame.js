@@ -43,9 +43,9 @@ var PhotoFrame = React.createClass({
         var that = this;
         var user_name = this.props.user_name;
 
-        InstagramService.getUserId(user_name).then(function(res) {
+        InstagramService.getUserInfo(user_name).then(function(res) {
             that.setState(that.getInitialState());
-            that.retrievePhotos(res);
+            that.retrievePhotos(res.id);
             that.retrieveMorePhotosOnScroll();
         });
     },
