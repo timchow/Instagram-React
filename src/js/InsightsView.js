@@ -2,6 +2,8 @@ var React = require('react');
 var InstagramService = require('./InstagramService.js');
 var Recharts = require('recharts')
 
+import {Label, Spinner, SpinnerType} from 'office-ui-fabric-react';
+
 Array.prototype.sum = function (prop) {
     var total = 0
     for ( var i = 0, _len = this.length; i < _len; i++ ) {
@@ -29,17 +31,34 @@ var Insights = React.createClass({
 		var likers = {};
 		InstagramService.getUserInfo(user_name).then(function(res) {
 			InstagramService.getAllUserMedia(res.id).then(function(res) {
-				var photos = res;
+				var requestArr = [];
+				
+				requestArr = res.map(function(photo) {
+					return InstagramService.getLikes(photo.id);
+				});
 
+				$.when.apply(this, requestArr).done(function(res) {
+					Array.prototype.slice.call(arguments).forEach(function(users) {
+						users.forEach(function(user){
+							var user_name = user.username;
+							likers[user_name] = (likers[user_name] || 0) + 1;
+						});				
+					});
+					that.setState({likers: likers}, function() {
+						$(".ig-bargraph-spinner").hide();
+					});
+				});
+				/*
 				photos.forEach(function(photo) {
+
 					InstagramService.getLikes(photo.id).then(function(res) {
 						res.forEach(function(user) {
 							var user_name = user.username;
-							likers[user_name] = (likers[user_name] || 0) + 1;
+							users[user_name] = (users[user_name] || 0) + 1;
 						});
-						that.setState({likers: likers});
+						that.setState({likers: users});
 					});
-				});
+				});*/
 			});
 		});
 	},
@@ -73,6 +92,7 @@ var Insights = React.createClass({
 
 		return (
 				<div>
+					<Spinner className="ig-bargraph-spinner" type={ SpinnerType.large } label="Retrieving all likes for user's media!" />
 					<BarChart width={1200} height={300} data={likers}
 						margin={{top: 5, right: 30, left: 20, bottom: 5}}
 						onClick={function(e){console.log(e)}}>
