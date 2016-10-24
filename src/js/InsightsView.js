@@ -1,5 +1,6 @@
 var React = require('react');
 var InstagramService = require('./InstagramService.js');
+var Recharts = require('recharts')
 
 Array.prototype.sum = function (prop) {
     var total = 0
@@ -25,17 +26,18 @@ var Insights = React.createClass({
 		var that = this,
 			user_name = this.props.routeParams.user_name;
 
+		var likers = {};
 		InstagramService.getUserInfo(user_name).then(function(res) {
 			InstagramService.getAllUserMedia(res.id).then(function(res) {
 				var photos = res;
-				var users = {};
+
 				photos.forEach(function(photo) {
 					InstagramService.getLikes(photo.id).then(function(res) {
 						res.forEach(function(user) {
 							var user_name = user.username;
-							users[user_name] = (users[user_name] || 0) + 1;
+							likers[user_name] = (likers[user_name] || 0) + 1;
 						});
-						that.setState({likers: users});
+						that.setState({likers: likers});
 					});
 				});
 			});
@@ -49,12 +51,47 @@ var Insights = React.createClass({
 	},
 	render: function() {
 		var topLikers = this.getTopNLikers(this.state.likers, 10),
-			likers = topLikers.map(function(liker) {return <div>{liker[0]} - {liker[1]}</div>});
+			likers = topLikers.map(function(liker) {
+				return {
+					name: liker[0],
+					Likes: liker[1]
+				}
+			});
+
+		const {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell} = Recharts;
+
+		const colors =['#e81123', 
+						'#ea2838', 
+						'#ec404e',
+						'#ee5865', 
+						'#f1707b', 
+						'#f38891', 
+						'#f59fa7', 
+						'#F8B7BD', 
+						'#facfd3', 
+						'#fce7e9'];
 
 		return (
-				<ul>
-					{likers}
-				</ul>
+				<div>
+					<BarChart width={1200} height={300} data={likers}
+						margin={{top: 5, right: 30, left: 20, bottom: 5}}
+						onClick={function(e){console.log(e)}}>
+					<XAxis dataKey="name" 
+						tickCount={10} />
+					<YAxis/>
+					<CartesianGrid strokeDasharray="3 3"/>
+					<Tooltip />
+					<Legend />
+
+					<Bar dataKey="Likes" >
+						{
+							likers.map((entry, index) => (
+								<Cell fill={colors[index]} />
+							))
+						}
+					</Bar>
+					</BarChart>
+				</div>
 			);
 	}
 });
