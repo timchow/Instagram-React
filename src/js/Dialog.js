@@ -36,8 +36,7 @@ var NewDialog = React.createClass({
 		};
 	},
 	render: function() {
-		var title = this.state.likes + " : " + this.state.caption;
-
+		var title = this.state.likes + ": " + this.state.caption;
 		return (
 			<div>
 			<Dialog
@@ -47,12 +46,18 @@ var NewDialog = React.createClass({
 			type={ DialogType.normal }
 			onDismiss={ this.props.closeDialog }
 			isDarkOverlay={ true }
-			title={title}
-			subText=''
 			isBlocking={ false }
 			containerClassName='dialogOverlay'
 			>
-			<div className="ms-Grid"> 
+			<div className="ms-Grid">
+				<div className="ms-Grid-row">
+					<div className="ms-Grid-col ms-u-sm1 ig-dialog-likes ms-font-xxl">
+						{this.state.likes} <i className="ms-Icon ms-Icon--HeartFill statsIcons" aria-hidden="true"></i>
+					</div>
+					<div className="ms-Grid-col ms-u-sm11 ig-dialog-caption ms-font-l">
+						{this.state.caption}
+					</div>
+				</div>
 			  <div className="ms-Grid-row">
 			    <div className="ms-Grid-col ms-u-sm6">
 			    	<div>
