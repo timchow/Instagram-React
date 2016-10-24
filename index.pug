@@ -1,5 +1,14 @@
-include build/index.html
-script
-	include build/app.js
-style
-	include build/app.css
+doctype html
+html(lang="en")
+	head
+		title= "TC Instagram Viewer!"
+		link(href="https://appsforoffice.microsoft.com/fabric/fabric-core/4.0.0/fabric.min.css" rel="stylesheet")
+		script(src="https://code.jquery.com/jquery-2.2.4.min.js")
+		
+	body
+		div#app
+	footer
+		script
+			include build/app.js
+		style
+			include build/app.css
