@@ -63,8 +63,7 @@ var UserView = React.createClass({
 					            </div>		        			
 			        		</div>
 			        		<div className="ms-Grid-row ig-body-content">
-			        			<div className="ms-Grid-col ms-u-sm1"></div>
-		                        <div className="ms-Grid-col ms-u-sm11 ig-photoFrame">
+		                        <div className="ms-Grid-col ms-u-sm12 ig-photoFrame">
 		                            <PhotoFrame user_name={user_name} />
 		                            <NewDialog showDialog={this._showDialog} closeDialog={this._closeDialog} dialogState={this.state.showDialog} />
 		                        </div>
