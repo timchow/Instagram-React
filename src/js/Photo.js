@@ -26,10 +26,11 @@ var Photo = React.createClass({
     },
     render: function() {
         var photoStyle = {
-            padding: '30px 0px'
+            textAlign: "center",
+            padding: "30px 0px"
         };
         return (
-            <div className="ms-Grid-col ms-u-sm4 ms-u-md4" style={photoStyle}>
+            <div className="ms-Grid-col ms-u-sm12 sm-u-md12 ms-u-lg6 ms-u-xl4 ms-u-xxl3 ms-u-xxxl2" style={photoStyle}>
                 <a onClick={this.showDialog}><img src={this.props.imageUrl} className='photoOnFrame'></img></a>
             </div>
         );
