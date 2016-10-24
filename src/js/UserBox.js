@@ -28,7 +28,7 @@ class UserBox extends React.Component {
 	    return (	
 	    		<div className="ms-Grid">
 	    			<div className="ms-Grid-row">
-	    				<div className="ms-Grid-col ms-u-sm4 ig-user-photo">
+	    				<div className="ms-Grid-col ig-user-photo">
 	    					<img src={this.state.profile_picture} />
 	    				</div>
 	    				<div className="ms-Grid-col ms-u-sm5">
