@@ -48,17 +48,6 @@ var Insights = React.createClass({
 						$(".ig-bargraph-spinner").hide();
 					});
 				});
-				/*
-				photos.forEach(function(photo) {
-
-					InstagramService.getLikes(photo.id).then(function(res) {
-						res.forEach(function(user) {
-							var user_name = user.username;
-							users[user_name] = (users[user_name] || 0) + 1;
-						});
-						that.setState({likers: users});
-					});
-				});*/
 			});
 		});
 	},
@@ -93,12 +82,13 @@ var Insights = React.createClass({
 		return (
 				<div>
 					<Spinner className="ig-bargraph-spinner" type={ SpinnerType.large } label="Retrieving all likes for user's media!" />
-					<BarChart width={1200} height={300} data={likers}
+					<BarChart width={1200} height={600} data={likers}
 						margin={{top: 5, right: 30, left: 20, bottom: 5}}
-						onClick={function(e){console.log(e)}}>
+						onMouseOver={function(e){console.log(e)}}>
 					<XAxis dataKey="name" 
 						tickCount={10} />
-					<YAxis/>
+					<YAxis
+						tickCount={10} />
 					<CartesianGrid strokeDasharray="3 3"/>
 					<Tooltip />
 					<Legend />
