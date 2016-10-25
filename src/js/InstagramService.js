@@ -8,6 +8,10 @@ var InstagramService = (function() {
 	};
 
 	/* Returns a promise that returns the user id for a given {user_name} */
+	function userPrivateException(messgae) {
+		this.message = message;
+   		this.name = "UserException";
+	}
 
 	function getUserInfo (user_name) {
 		var options = {
@@ -19,7 +23,9 @@ var InstagramService = (function() {
 
 		return $.ajax(options).then(function(res) {
 			return res.user;
-		});
+		}, function(e) {
+			return e;
+		})
 	};
 
 	/* Returns a promise that returns at most 20 media objects for a given {user_id} */

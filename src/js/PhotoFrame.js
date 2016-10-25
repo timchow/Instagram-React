@@ -21,7 +21,11 @@ export default class PhotoFrame extends React.Component {
         
         InstagramService.getRecentUserMedia(user_id, max_id).then(function(res) {
             if (res == undefined){
+                console.log("recentusremedia")
                 alert('Private user');
+            }
+            else if (res == 404) {
+                alert(res);
             }
             else if (res.length == 0) {
                 return;
@@ -50,9 +54,21 @@ export default class PhotoFrame extends React.Component {
         var user_name = this.props.user_name;
 
         InstagramService.getUserInfo(user_name).then(function(res) {
+            console.log(res)
+            if (res.is_private) {
+                console.log("userinfo")
+                alert("Private user");
+                return;
+            }
+            console.log("12")
             that.setState(that.initialState);
             that.retrievePhotos(res.id);
             that.retrieveMorePhotosOnScroll();
+        }, function(e) {
+            $('.ig-stats-spinner').hide();
+            if (e.status == 404) {
+                alert("User not found!");
+            }
         });
     }
 

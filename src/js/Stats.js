@@ -29,7 +29,7 @@ export default class Stats extends React.Component{
 					totalLikes: res.sum("likes"),
 					totalComments: res.sum("comments")
 				}, function() {
-					$('.ms-Spinner').hide();
+					$('.ig-stats-spinner').hide();
 				});
 			});
 		});

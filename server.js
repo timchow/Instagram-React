@@ -70,12 +70,15 @@ app.get('/likes', function(req, res, next) {
 function RequestAndRespond(url, serverResponse) {
 	var body = "";
 	https.get(url, function(res) {
+		if (res.statusCode == 404) return serverResponse.send(404);
 		res.on('data', function (data) {
 			body += data;
 		});
 		res.on('end', function(){
 			serverResponse.send(body);
 		})
+	}).on('error', function(e) {
+		serverResponse.send(404);
 	});
 };
 
