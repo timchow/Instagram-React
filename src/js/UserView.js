@@ -16,7 +16,9 @@ class UserView extends React.Component {
 			showPanel: false
 		}
 		this._closeDialog = this._closeDialog.bind(this);
+		this.showDialog = this._showDialog.bind(this);
 		this._showPanel = this._showPanel.bind(this);
+		this._closePanel = this._closePanel.bind(this);
 	}
 
 	componentDidMount() {
