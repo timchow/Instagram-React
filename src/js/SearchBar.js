@@ -1,28 +1,25 @@
-var React = require('react');
-//import {React} from "react"
-var OF = require('office-ui-fabric-react');
-
-var SearchBox = OF.SearchBox;
-var Button = OF.Button;
-var ButtonType = OF.ButtonType;
+import React from 'react';
+import {SearchBox, Button, ButtonType} from 'office-ui-fabric-react';
 
 var SearchBarStyle = {
 	width: '300px',
 	zIndex: '0'
 };
 
-var SearchBar = React.createClass({
-	getInitialState: function () {
-		return {
-			text: ''
-		};
-	},
-	updateInput: function(ev) {
+export default class SearchBar extends React.Component {
+	constructor() {
+		super();
+		this.state = { text: ''};
+		this.updateInput = this.updateInput.bind(this);
+	}
+
+	updateInput(ev) {
 		this.setState({
 			text: ev
 		});
-	},
-	render: function() {
+	}
+
+	render() {
 
 		return (
 			<form id="bar" style={SearchBarStyle} action={`/user/${this.state.text}`} method='GET'>
@@ -30,13 +27,4 @@ var SearchBar = React.createClass({
 			</form>
 			);
 	}
-});
-
-/*
-class SearchBar extends React.Component {
-	state = {
-		text: ''
-	}
-}*/
-
-module.exports = SearchBar;
+};

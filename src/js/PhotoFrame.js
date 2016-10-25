@@ -1,11 +1,22 @@
-var React = require('react');
-var OF = require('office-ui-fabric-react');
+import React from 'react';
 
-var Photo = require('./Photo.js');
-var InstagramService = require('./InstagramService.js');
+import Photo from './Photo';
+import InstagramService from './InstagramService';
 
-var PhotoFrame = React.createClass({
-    retrievePhotos: function(user_id, max_id) {
+export default class PhotoFrame extends React.Component {
+    constructor() {
+        super();
+        this.retrievePhotos = this.retrievePhotos.bind(this);
+        this.retrieveMorePhotosOnScroll = this.retrieveMorePhotosOnScroll.bind(this);
+
+        this.state = this.initialState = {
+            media: [],
+            max_id: null,
+            user_id: null
+        };
+    }
+
+    retrievePhotos(user_id, max_id) {
         var that = this;
         
         InstagramService.getRecentUserMedia(user_id, max_id).then(function(res) {
@@ -22,8 +33,9 @@ var PhotoFrame = React.createClass({
                 user_id: user_id
             });
         });
-    },
-    retrieveMorePhotosOnScroll: function() {
+    }
+
+    retrieveMorePhotosOnScroll() {
         var that = this;
         $(window).off('scroll');
         $(window).on('scroll', function() {
@@ -31,28 +43,24 @@ var PhotoFrame = React.createClass({
                 that.retrievePhotos(that.state.user_id, that.state.max_id);
             }
         });
-    },
-    getInitialState: function() {
-        return {
-            media: [],
-            max_id: null,
-            user_id: null,
-        };
-    },
-    componentDidMount: function() {
+    }
+
+    componentDidMount() {
         var that = this;
         var user_name = this.props.user_name;
 
         InstagramService.getUserInfo(user_name).then(function(res) {
-            that.setState(that.getInitialState());
+            that.setState(that.initialState);
             that.retrievePhotos(res.id);
             that.retrieveMorePhotosOnScroll();
         });
-    },
-    componentWillUnmount: function() {
+    }
+
+    componentWillUnmount() {
         $(window).off('scroll');
-    },
-    render: function() {
+    }
+
+    render() {
         var photos = [];
 
         this.state.media.forEach(function(media){
@@ -81,6 +89,4 @@ var PhotoFrame = React.createClass({
             </div>
             );
     }
-});
-
-module.exports = PhotoFrame;
+};

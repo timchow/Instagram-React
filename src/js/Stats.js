@@ -10,7 +10,7 @@ Array.prototype.sum = function (prop) {
     return total;
 }
 
-class Stats extends React.Component{
+export default class Stats extends React.Component{
 	constructor() {
 		super();
 		this.state = {
@@ -52,5 +52,3 @@ class Stats extends React.Component{
 			);
 	}
 };
-
-export default Stats

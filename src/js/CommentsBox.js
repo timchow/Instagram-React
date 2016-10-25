@@ -1,14 +1,12 @@
-var React = require('react');
-//var Comment = require('./Comment.js');
-import Comment from './Comment.js'
-var Comments = React.createClass({
-	componentDidMount: function() {
-	},
-	getInitialState: function() {
-		return {
-		};
-	},
-	render: function() {
+import React from 'react';
+import Comment from './Comment.js';
+
+export default class CommentsBox extends React.Component {
+	constructor() {
+		super();
+	}
+
+	render() {
 		var comments = [];
 		this.props.comments.forEach(function(comment) {
 			var comment_text = comment.text,
@@ -36,6 +34,4 @@ var Comments = React.createClass({
 			</div>
 			);
 	}
-});
-
-module.exports = Comments;
+};

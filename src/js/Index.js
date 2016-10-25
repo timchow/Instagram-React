@@ -1,20 +1,13 @@
-var ReactDOM = require('react-dom');
-var React = require('react');
- 
-var SearchBar = require('./SearchBar');
-var PhotoFrame = require('./PhotoFrame');
-var NewDialog = require('./Dialog.js');
+import ReactDOM from 'react-dom';
+import React from 'react';
+import {Router, browserHistory, Route} from 'react-router';
+
+import SearchBar from './SearchBar';
 import InsightsView from './InsightsView'
 import UserView from './UserView';
 
-var Router = require('react-router').Router;
-var browserHistory = require('react-router').browserHistory;
-var Route = require('react-router').Route;
-
-import UserBox from './UserBox'
-
-var SearchView = React.createClass({
-	render: function() {
+class SearchView extends React.Component {
+	render() {
 		var indexStyle = this.props.indexStyle || {
 			position: 'absolute',
 			top: '50%',
@@ -28,7 +21,7 @@ var SearchView = React.createClass({
 			</div>
 		);
 	}
-});
+};
 
 ReactDOM.render((
 	<Router history={browserHistory}>

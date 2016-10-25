@@ -12,7 +12,7 @@ Array.prototype.sum = function (prop) {
     return total;
 }
 
-class InsightsView extends React.Component {
+export default class InsightsView extends React.Component {
 	constructor() {
 		super();
 		this.state = {
@@ -66,10 +66,8 @@ class InsightsView extends React.Component {
 				return {
 					name: liker[0],
 					Likes: liker[1]
-				}
+				};
 			});
-
-		//const {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell} = Recharts;
 
 		const colors =['#e81123', 
 						'#ea2838', 
@@ -107,6 +105,4 @@ class InsightsView extends React.Component {
 				</div>
 			);
 	}
-}
-
-export default InsightsView;
+};

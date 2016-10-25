@@ -8,7 +8,7 @@ import {Panel, PanelType} from 'office-ui-fabric-react';
 import {Router, Route, Link} from 'react-router';
 import UserBox from './UserBox'
 
-class UserView extends React.Component {
+export default class UserView extends React.Component {
 	constructor() {
 		super();
 		this.state = {
@@ -90,5 +90,3 @@ class UserView extends React.Component {
 		);
 	}
 };
-
-export default UserView;

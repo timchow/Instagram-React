@@ -8,7 +8,7 @@ var imgStyle = {
 	height: 'auto'
 };
 
-class NewDialog extends React.Component{
+export default class NewDialog extends React.Component{
 	constructor() {
 		super();
 		this.state = {
@@ -70,5 +70,3 @@ class NewDialog extends React.Component{
 			);
 	}
 };
-
-export default NewDialog;
