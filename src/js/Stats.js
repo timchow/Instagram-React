@@ -1,5 +1,5 @@
-var React = require('react');
-var InstagramService = require('./InstagramService');
+import React from 'react';
+import InstagramService from './InstagramService';
 import {Label, Spinner, SpinnerType} from 'office-ui-fabric-react'
 
 Array.prototype.sum = function (prop) {
@@ -10,8 +10,16 @@ Array.prototype.sum = function (prop) {
     return total;
 }
 
-var Stats = React.createClass({
-	componentDidMount: function() {
+class Stats extends React.Component{
+	constructor() {
+		super();
+		this.state = {
+			totalLikes: [],
+			totalComments: []
+		}
+	}
+
+	componentDidMount() {
 		var that = this;
 		var user_name = this.props.user_name;
 
@@ -25,14 +33,9 @@ var Stats = React.createClass({
 				});
 			});
 		});
-	},
-	getInitialState: function() {
-		return {
-			totalLikes: [],
-			totalComments: []
-		};
-	},
-	render: function() {
+	}
+
+	render() {
 		return (
 				<div className="ms-Grid"> 
 					<div className="ms-Grid-row">
@@ -48,6 +51,6 @@ var Stats = React.createClass({
 				</div>
 			);
 	}
-});
+};
 
-module.exports = Stats;
+export default Stats

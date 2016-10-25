@@ -1,22 +1,24 @@
-var React = require('react');
-var Photo = require('./Photo.js');
-var CommentsBox = require('./CommentsBox.js');
-var OF = require('office-ui-fabric-react');
-
-var Button = OF.Button;
-var ButtonType = OF.ButtonType;
-var ChoiceGroup = OF.ChoiceGroup;
-var Dialog = OF.Dialog;
-var DialogFooter = OF.DialogFooter;
-var DialogType = OF.DialogType;
+import React from 'React';
+import Photo from './Photo';
+import CommentsBox from './CommentsBox';
+import {Button, ButtonType, Dialog, DialogFooter, DialogType} from 'office-ui-fabric-react';
 
 var imgStyle = {
 	width: '500px',
 	height: 'auto'
 };
 
-var NewDialog = React.createClass({
-	componentDidMount: function() {
+class NewDialog extends React.Component{
+	constructor() {
+		super();
+		this.state = {
+			image: '',
+			likes: [],
+			comments: []
+		}
+	}
+
+	componentDidMount() {
 		var that = this;
 		$(window).on('photoClicked', function() {
 			var photoData = Array.prototype.slice.call(arguments,1)[0];
@@ -27,15 +29,9 @@ var NewDialog = React.createClass({
 				likes: photoData.likes
 			});
 		});
-	},
-	getInitialState: function() {
-		return {
-			image: '',
-			likes: [],
-			comments: []
-		};
-	},
-	render: function() {
+	}
+
+	render() {
 		var title = this.state.likes + ": " + this.state.caption;
 		return (
 			<div>
@@ -73,6 +69,6 @@ var NewDialog = React.createClass({
 			</div>
 			);
 	}
-});
+};
 
-module.exports = NewDialog;
+export default NewDialog;

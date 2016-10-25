@@ -1,6 +1,6 @@
-var React = require('react');
-var InstagramService = require('./InstagramService.js');
-var Recharts = require('recharts')
+import React from 'react';
+import InstagramService from './InstagramService';
+import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell} from 'recharts';
 
 import {Label, Spinner, SpinnerType} from 'office-ui-fabric-react';
 
@@ -12,8 +12,14 @@ Array.prototype.sum = function (prop) {
     return total;
 }
 
-var Insights = React.createClass({
-	getTopNLikers: function(likers, n) {
+class InsightsView extends React.Component {
+	constructor() {
+		super();
+		this.state = {
+			likers: []
+		}
+	}
+	getTopNLikers(likers, n) {
 		var topLikers = [];
 
 		for (var likes in likers) {
@@ -23,8 +29,9 @@ var Insights = React.createClass({
 		topLikers.sort(function(a, b) {return b[1] - a[1]});
 		
 		return topLikers.slice(0,n);
-	},
-	componentDidMount: function() {
+	}
+
+	componentDidMount() {
 		var that = this,
 			user_name = this.props.routeParams.user_name;
 
@@ -46,18 +53,14 @@ var Insights = React.createClass({
 					});
 					that.setState({likers: likers}, function() {
 						$(".ig-bargraph-spinner").hide();
+						$(".ig-barchart").show();
 					});
 				});
 			});
 		});
-	},
-	getInitialState: function() {
-		return {
-			likers: {},
-			sum: 0
-		};
-	},
-	render: function() {
+	}
+
+	render() {
 		var topLikers = this.getTopNLikers(this.state.likers, 10),
 			likers = topLikers.map(function(liker) {
 				return {
@@ -66,7 +69,7 @@ var Insights = React.createClass({
 				}
 			});
 
-		const {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell} = Recharts;
+		//const {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell} = Recharts;
 
 		const colors =['#e81123', 
 						'#ea2838', 
@@ -82,7 +85,7 @@ var Insights = React.createClass({
 		return (
 				<div>
 					<Spinner className="ig-bargraph-spinner" type={ SpinnerType.large } label="Retrieving all likes for user's media!" />
-					<BarChart width={1200} height={600} data={likers}
+					<BarChart className="ig-barchart" width={1200} height={600} data={likers}
 						margin={{top: 5, right: 30, left: 20, bottom: 5}}
 						onMouseOver={function(e){console.log(e)}}>
 					<XAxis dataKey="name" 
@@ -104,6 +107,6 @@ var Insights = React.createClass({
 				</div>
 			);
 	}
-});
+}
 
-module.exports = Insights;
+export default InsightsView;

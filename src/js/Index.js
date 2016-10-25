@@ -4,8 +4,8 @@ var React = require('react');
 var SearchBar = require('./SearchBar');
 var PhotoFrame = require('./PhotoFrame');
 var NewDialog = require('./Dialog.js');
-var InsightsView = require('./InsightsView.js');
-var UserView = require('./UserView.js')
+import InsightsView from './InsightsView'
+import UserView from './UserView';
 
 var Router = require('react-router').Router;
 var browserHistory = require('react-router').browserHistory;

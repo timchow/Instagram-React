@@ -1,43 +1,45 @@
-var React = require('react');
-
-var SearchBar = require('./SearchBar');
-var PhotoFrame = require('./PhotoFrame');
-var NewDialog = require('./Dialog.js');
-var InsightsView = require('./InsightsView.js');
+import React from 'react';
+import SearchBar from './SearchBar';
+import PhotoFrame from './PhotoFrame';
+import NewDialog from './Dialog';
+import InsightsView from './InsightsView';
 
 import {Panel, PanelType} from 'office-ui-fabric-react';
 import {Router, Route, Link} from 'react-router';
-
 import UserBox from './UserBox'
 
-var UserView = React.createClass({
-	getInitialState: function() {
-		return {
+class UserView extends React.Component {
+	constructor() {
+		super();
+		this.state = {
 			showDialog: false,
 			showPanel: false
-		};
-	},
-	componentDidMount: function() {
+		}
+		this._closeDialog = this._closeDialog.bind(this);
+		this._showPanel = this._showPanel.bind(this);
+	}
+
+	componentDidMount() {
 		var that = this;
 		$(window).on('photoClicked', function() {
 			that.setState({
 				showDialog: true
 			});
 		});
-	},
-	_showDialog: function() {
+	}
+	_showDialog() {
 		this.setState( {showDialog: true } );
-	},
-	_closeDialog: function() {
+	}
+	_closeDialog() {
 		this.setState( {showDialog: false } );
-	},
-	_showPanel: function() {
+	}
+	_showPanel() {
 		this.setState({showPanel: true});
-	},
-	_closePanel: function() {
+	}
+	_closePanel() {
 		this.setState({showPanel: false});
-	},
-	render: function() {
+	}
+	render() {
 		var user_name = this.props.routeParams.user_name,
 			insightsUrl = "/user/"+user_name+"/insights";
 		return (
@@ -85,6 +87,6 @@ var UserView = React.createClass({
 			</div>
 		);
 	}
-});
+};
 
-module.exports = UserView;
+export default UserView;
