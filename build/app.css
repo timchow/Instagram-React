@@ -36,3 +36,6 @@
 .ig-dialog-likes {
   padding: 10px;
 }
+.ig-barchart {
+  display: none;
+}
