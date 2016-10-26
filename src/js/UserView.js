@@ -1,11 +1,10 @@
 import React from 'react';
+import {Panel, PanelType} from 'office-ui-fabric-react';
+
 import SearchBar from './SearchBar';
 import PhotoFrame from './PhotoFrame';
 import NewDialog from './Dialog';
 import InsightsView from './InsightsView';
-
-import {Panel, PanelType} from 'office-ui-fabric-react';
-import {Router, Route, Link} from 'react-router';
 import UserBox from './UserBox'
 
 export default class UserView extends React.Component {

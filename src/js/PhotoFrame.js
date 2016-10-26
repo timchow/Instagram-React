@@ -21,7 +21,6 @@ export default class PhotoFrame extends React.Component {
         
         InstagramService.getRecentUserMedia(user_id, max_id).then(function(res) {
             if (res == undefined){
-                console.log("recentusremedia")
                 alert('Private user');
             }
             else if (res == 404) {

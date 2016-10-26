@@ -1,6 +1,7 @@
 import React from 'react';
-import InstagramService from './InstagramService';
 import {Label, Spinner, SpinnerType} from 'office-ui-fabric-react'
+
+import InstagramService from './InstagramService';
 
 Array.prototype.sum = function (prop) {
     var total = 0

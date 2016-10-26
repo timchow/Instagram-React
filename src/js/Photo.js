@@ -1,4 +1,5 @@
 import React from 'react';
+
 import InstagramService from './InstagramService';
 
 var photoStyle = {
