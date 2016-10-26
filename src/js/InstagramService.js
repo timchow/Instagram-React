@@ -1,29 +1,24 @@
-var InstagramService = (function() {
+const InstagramService = (() => {
 	return {
 		getUserInfo: getUserInfo,
 		getRecentUserMedia: getRecentUserMedia,
+		getAllUserMediaLikes: getAllUserMediaLikes,
 		getComments: getComments,
 		getLikes: getLikes,
 		getAllUserMedia: getAllUserMedia
 	};
 
-	/* Returns a promise that returns the user id for a given {user_name} */
-	function userPrivateException(messgae) {
-		this.message = message;
-   		this.name = "UserException";
-	}
-
 	function getUserInfo (user_name) {
-		var options = {
+		const options = {
 			url: '/userInfo',
 			data: {
 				user_name: user_name
 			}
 		};
 
-		return $.ajax(options).then(function(res) {
+		return $.ajax(options).then((res) => {
 			return res.user;
-		}, function(e) {
+		}, (e) => {
 			return e;
 		})
 	};
@@ -31,7 +26,7 @@ var InstagramService = (function() {
 	/* Returns a promise that returns at most 20 media objects for a given {user_id} */
 
 	function getRecentUserMedia (user_id, max_id) {
-		var options = {
+		const options = {
 			url: '/media',
 			data: {
 				user_id: user_id,
@@ -39,7 +34,7 @@ var InstagramService = (function() {
 			}
 		};
 
-		return $.ajax(options).then(function(res) {
+		return $.ajax(options).then((res) => {
 			return res.data;
 		});
 	};
@@ -47,42 +42,41 @@ var InstagramService = (function() {
 	/* Returns a promise that returns at most 150 comments for a given {media_id} */
 
 	function getComments (media_id) {
-		var options = {
+		const options = {
 			url: '/comments',
 			data: {
 				media_id: media_id
 			}
 		};
 
-		return $.ajax(options).then(function(res) {
+		return $.ajax(options).then((res) => {
 			return res.data;
 		});
 	};
 
 	function getLikes (media_id) {
-		var options = {
+		const options = {
 			url: '/likes',
 			data: {
 				media_id: media_id
 			}
 		};
 
-		return $.ajax(options).then(function(res) {
+		return $.ajax(options).then((res) => {
 			return res.data;
 		});
 	}
 
 	/* Returns a promise that returns all media for a given {user_id} */
 
-	function getAllUserMedia (user_id, max_id, _result) {
-		var _result = (_result !== undefined) ? _result : [];
+	function getAllUserMedia (user_id, max_id, _result = []) {
 		console.log(max_id)
 		if (max_id == 'done') {
 			return _result;
 		}
 
-		return getRecentUserMedia(user_id, max_id).then(function(res) {
-			var new_items = res,
+		return getRecentUserMedia(user_id, max_id).then((res) => {
+			let new_items = res,
 				new_max_id = 'done';
 
 			_result = _result.concat(new_items);
@@ -96,6 +90,27 @@ var InstagramService = (function() {
 		});
 	}
 
+	function getAllUserMediaLikes (user_name) {
+		let likers = {};
+		return InstagramService.getUserInfo(user_name).then((res) => {
+			return InstagramService.getAllUserMedia(res.id).then((res) => {
+				let requestArr = [];
+				
+				requestArr = res.map((photo) => InstagramService.getLikes(photo.id));
+
+				return $.when.apply(this, requestArr).then((...res) => {
+					res.forEach((users) => {
+						users.forEach((user) => {
+							const user_name = user.username;
+							likers[user_name] = (likers[user_name] || 0) + 1;
+						});				
+					});
+					return likers;
+				});
+			});
+		});
+	}
+
 })();
 
-module.exports = InstagramService;
+export default InstagramService;

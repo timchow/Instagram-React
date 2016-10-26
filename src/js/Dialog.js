@@ -1,7 +1,8 @@
 import React from 'React';
+import {Button, ButtonType, Dialog, DialogFooter, DialogType} from 'office-ui-fabric-react';
+
 import Photo from './Photo';
 import CommentsBox from './CommentsBox';
-import {Button, ButtonType, Dialog, DialogFooter, DialogType} from 'office-ui-fabric-react';
 
 var imgStyle = {
 	width: '500px',
@@ -19,9 +20,9 @@ export default class NewDialog extends React.Component{
 	}
 
 	componentDidMount() {
-		var that = this;
+		const that = this;
 		$(window).on('photoClicked', function() {
-			var photoData = Array.prototype.slice.call(arguments,1)[0];
+			const photoData = Array.prototype.slice.call(arguments,1)[0];
 			that.setState({
 				comments: photoData.comments,
 				image: photoData.bigImage,
@@ -32,18 +33,17 @@ export default class NewDialog extends React.Component{
 	}
 
 	render() {
-		var title = this.state.likes + ": " + this.state.caption;
 		return (
 			<div>
 			<Dialog
-			className='dialog'
-			id='modal'
-			isOpen={ this.props.dialogState }
-			type={ DialogType.normal }
-			onDismiss={ this.props.closeDialog }
-			isDarkOverlay={ true }
-			isBlocking={ false }
-			containerClassName='dialogOverlay'
+				className='dialog'
+				id='modal'
+				isOpen={ this.props.dialogState }
+				type={ DialogType.normal }
+				onDismiss={ this.props.closeDialog }
+				isDarkOverlay={ true }
+				isBlocking={ false }
+				containerClassName='dialogOverlay'
 			>
 			<div className="ms-Grid">
 				<div className="ms-Grid-row">

@@ -1,10 +1,12 @@
 import React from 'react';
-import InstagramService from './InstagramService';
+import {Label, Spinner, SpinnerType} from 'office-ui-fabric-react';
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell} from 'recharts';
 
-import {Label, Spinner, SpinnerType} from 'office-ui-fabric-react';
+import InstagramService from './InstagramService';
 
-Array.prototype.sum = function (prop) {
+
+
+Array.prototype.sum = (prop) => {
     var total = 0
     for ( var i = 0, _len = this.length; i < _len; i++ ) {
         total += this[i][prop].count;
@@ -20,49 +22,32 @@ export default class InsightsView extends React.Component {
 		}
 	}
 	getTopNLikers(likers, n) {
-		var topLikers = [];
+		const topLikers = [];
 
 		for (var likes in likers) {
 			topLikers.push([likes, likers[likes]]);
 		}
 
-		topLikers.sort(function(a, b) {return b[1] - a[1]});
+		topLikers.sort((a, b) =>  b[1] - a[1]);
 		
 		return topLikers.slice(0,n);
 	}
 
 	componentDidMount() {
-		var that = this,
+		const that = this,
 			user_name = this.props.routeParams.user_name;
 
-		var likers = {};
-		InstagramService.getUserInfo(user_name).then(function(res) {
-			InstagramService.getAllUserMedia(res.id).then(function(res) {
-				var requestArr = [];
-				
-				requestArr = res.map(function(photo) {
-					return InstagramService.getLikes(photo.id);
-				});
-
-				$.when.apply(this, requestArr).done(function(res) {
-					Array.prototype.slice.call(arguments).forEach(function(users) {
-						users.forEach(function(user){
-							var user_name = user.username;
-							likers[user_name] = (likers[user_name] || 0) + 1;
-						});				
-					});
-					that.setState({likers: likers}, function() {
-						$(".ig-bargraph-spinner").hide();
-						$(".ig-barchart").show();
-					});
-				});
+		InstagramService.getAllUserMediaLikes(user_name).then(function(res) {
+			that.setState({likers: res}, () => {
+				$(".ig-bargraph-spinner").hide();
+				$(".ig-barchart").show();
 			});
 		});
 	}
 
 	render() {
-		var topLikers = this.getTopNLikers(this.state.likers, 10),
-			likers = topLikers.map(function(liker) {
+		const topLikers = this.getTopNLikers(this.state.likers, 10),
+			likers = topLikers.map((liker) => {
 				return {
 					name: liker[0],
 					Likes: liker[1]
