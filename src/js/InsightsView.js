@@ -36,7 +36,7 @@ export default class InsightsView extends React.Component {
 	componentDidMount() {
 		const that = this,
 			user_name = this.props.routeParams.user_name;
-
+		
 		InstagramService.getAllUserMediaLikes(user_name).then(function(res) {
 			that.setState({likers: res}, () => {
 				$(".ig-bargraph-spinner").hide();

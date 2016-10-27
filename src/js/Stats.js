@@ -3,7 +3,7 @@ import {Label, Spinner, SpinnerType} from 'office-ui-fabric-react'
 
 import InstagramService from './InstagramService';
 
-Array.prototype.sum = function (prop) {
+Array.prototype.sum = function(prop) {
     var total = 0
     for ( var i = 0, _len = this.length; i < _len; i++ ) {
         total += this[i][prop].count;
@@ -23,13 +23,13 @@ export default class Stats extends React.Component{
 	componentDidMount() {
 		var that = this;
 		var user_name = this.props.user_name;
-
-		InstagramService.getUserInfo(user_name).then(function(res) {
-			InstagramService.getAllUserMedia(res.id).then(function(res) {
+		
+		InstagramService.getUserInfo(user_name).then((res) => {
+			InstagramService.getAllUserMedia(res.id).then((res) => {
 				that.setState({
 					totalLikes: res.sum("likes"),
 					totalComments: res.sum("comments")
-				}, function() {
+				}, () => {
 					$('.ig-stats-spinner').hide();
 				});
 			});

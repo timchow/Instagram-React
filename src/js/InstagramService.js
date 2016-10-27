@@ -19,6 +19,7 @@ const InstagramService = (() => {
 		return $.ajax(options).then((res) => {
 			return res.user;
 		}, (e) => {
+			alert("User not found!");
 			return e;
 		})
 	};

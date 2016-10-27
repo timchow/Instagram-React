@@ -51,12 +51,11 @@ export default class PhotoFrame extends React.Component {
     componentDidMount() {
         var that = this;
         var user_name = this.props.user_name;
-
+        
         InstagramService.getUserInfo(user_name).then(function(res) {
             console.log(res)
-            if (res.is_private) {
-                console.log("userinfo")
-                alert("Private user");
+            if (res == undefined || res.is_private) {
+                console.log("inside")
                 return;
             }
             console.log("12")
@@ -65,9 +64,6 @@ export default class PhotoFrame extends React.Component {
             that.retrieveMorePhotosOnScroll();
         }, function(e) {
             $('.ig-stats-spinner').hide();
-            if (e.status == 404) {
-                alert("User not found!");
-            }
         });
     }
 

@@ -13,7 +13,7 @@ class UserBox extends React.Component {
 	componentDidMount() {
 		var that = this,
 			user_name = this.props.user_name;
-
+		
 		InstagramService.getUserInfo(user_name).then(function(res) {
 			that.setState({ 
 				full_name: res.full_name,
