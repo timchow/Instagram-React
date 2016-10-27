@@ -23,17 +23,19 @@ export default class Stats extends React.Component{
 	componentDidMount() {
 		var that = this;
 		var user_name = this.props.user_name;
-		
-		InstagramService.getUserInfo(user_name).then((res) => {
-			InstagramService.getAllUserMedia(res.id).then((res) => {
-				that.setState({
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (!nextProps.userInfo.is_private) {
+			InstagramService.getAllUserMedia(nextProps.userInfo.id).then((res) => {
+				this.setState({
 					totalLikes: res.sum("likes"),
 					totalComments: res.sum("comments")
 				}, () => {
 					$('.ig-stats-spinner').hide();
 				});
 			});
-		});
+		}
 	}
 
 	render() {

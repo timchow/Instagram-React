@@ -51,20 +51,14 @@ export default class PhotoFrame extends React.Component {
     componentDidMount() {
         var that = this;
         var user_name = this.props.user_name;
-        
-        InstagramService.getUserInfo(user_name).then(function(res) {
-            console.log(res)
-            if (res == undefined || res.is_private) {
-                console.log("inside")
-                return;
-            }
-            console.log("12")
-            that.setState(that.initialState);
-            that.retrievePhotos(res.id);
-            that.retrieveMorePhotosOnScroll();
-        }, function(e) {
-            $('.ig-stats-spinner').hide();
-        });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.userInfo.is_private) {
+            this.setState(this.initialState);
+            this.retrievePhotos(nextProps.userInfo.id);
+            this.retrieveMorePhotosOnScroll();
+        }
     }
 
     componentWillUnmount() {

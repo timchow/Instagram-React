@@ -6,9 +6,11 @@ import PhotoFrame from './PhotoFrame';
 import NewDialog from './Dialog';
 import InsightsView from './InsightsView';
 import UserBox from './UserBox'
+import InstagramService from './InstagramService';
 
 export default class UserView extends React.Component {
 	constructor() {
+		console.log("UserView - Constructor")
 		super();
 		this.state = {
 			showDialog: false,
@@ -21,11 +23,16 @@ export default class UserView extends React.Component {
 	}
 
 	componentDidMount() {
+		console.log("UserView - Mounted")
 		var that = this;
 		$(window).on('photoClicked', function() {
 			that.setState({
 				showDialog: true
 			});
+		});
+
+		InstagramService.getUserInfo(this.props.routeParams.user_name).then(function(res) {
+			that.setState({userInfo: res}, function() { console.log(100)});
 		});
 	}
 	_showDialog() {
@@ -41,6 +48,9 @@ export default class UserView extends React.Component {
 		this.setState({showPanel: false});
 	}
 	render() {
+		console.log("UserView - Render")
+		console.log("UserView - State");
+		console.log(this.state)
 		var user_name = this.props.routeParams.user_name,
 			insightsUrl = "/user/"+user_name+"/insights";
 		return (
@@ -53,7 +63,7 @@ export default class UserView extends React.Component {
 					                <div className="ms-Grid">
 					                    <div className="ms-Grid-row">
 					                        <div className="ms-Grid-col ms-u-sm12 ig-userinfo-bar">
-					                            <UserBox user_name={user_name} showPanel={this._showPanel} />
+					                            <UserBox userInfo={this.state.userInfo} showPanel={this._showPanel} />
 					                        </div>
 					                    </div>
 					                </div>
@@ -64,7 +74,7 @@ export default class UserView extends React.Component {
 			        		</div>
 			        		<div className="ms-Grid-row ig-body-content">
 		                        <div className="ms-Grid-col ms-u-sm12 ig-photoFrame">
-		                            <PhotoFrame user_name={user_name} />
+		                            <PhotoFrame userInfo={this.state.userInfo} />
 		                            <NewDialog showDialog={this._showDialog} closeDialog={this._closeDialog} dialogState={this.state.showDialog} />
 		                        </div>
 			        		</div>

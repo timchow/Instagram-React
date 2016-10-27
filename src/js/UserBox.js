@@ -6,6 +6,7 @@ import Stats from './Stats';
 
 class UserBox extends React.Component {
 	constructor() {
+		console.log("UserBox - Constructor")
 		super();
     	this.state = { full_name: '', profile_picture: '', biography:'' }
   	}
@@ -13,16 +14,21 @@ class UserBox extends React.Component {
 	componentDidMount() {
 		var that = this,
 			user_name = this.props.user_name;
-		
-		InstagramService.getUserInfo(user_name).then(function(res) {
-			that.setState({ 
-				full_name: res.full_name,
-				profile_picture: res.profile_pic_url,
-				biography: res.biography
-			});
+		console.log("UserBox - Mounted")
+	}
+
+	componentWillReceiveProps(nextProps) {
+		console.log("UserBox - Will Receive Props")
+		this.setState({ 
+			full_name: nextProps.userInfo.full_name,
+			profile_picture: nextProps.userInfo.profile_pic_url,
+			biography: nextProps.userInfo.biography
 		});
 	}
 	render() {
+		console.log("UserBox - Render")
+		console.log("UserBox - State");
+		console.log(this.state)
 	    return (	
 	    		<div className="ms-Grid">
 	    			<div className="ms-Grid-row">
@@ -38,7 +44,7 @@ class UserBox extends React.Component {
 								</div>
 								<div className="ms-Grid-row">
 									<div className="ms-Grid-col ms-u-sm12">
-										<Stats user_name={this.props.user_name} />
+										<Stats userInfo={this.props.userInfo} />
 									</div>
 								</div>
 								<div className="ms-Grid-row">
