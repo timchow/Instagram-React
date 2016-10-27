@@ -17,9 +17,16 @@ const InstagramService = (() => {
 		};
 
 		return $.ajax(options).then((res) => {
+			console.log(res)
+			if (res.user.is_private) {
+				alert("Private user");
+				$(".ig-stats-spinner").hide();
+			}
+
 			return res.user;
 		}, (e) => {
 			alert("User not found!");
+			$(".ig-stats-spinner").hide();
 			return e;
 		})
 	};
@@ -71,7 +78,7 @@ const InstagramService = (() => {
 	/* Returns a promise that returns all media for a given {user_id} */
 
 	function getAllUserMedia (user_id, max_id, _result = []) {
-		console.log(max_id)
+		//console.log(max_id)
 		if (max_id == 'done') {
 			return _result;
 		}
