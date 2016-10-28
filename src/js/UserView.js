@@ -13,11 +13,9 @@ export default class UserView extends React.Component {
 		console.log("UserView - Constructor")
 		super();
 		this.state = {
-			showDialog: false,
-			showPanel: false
+			showPanel: false,
+			userInfo: {}
 		}
-		this._closeDialog = this._closeDialog.bind(this);
-		this.showDialog = this._showDialog.bind(this);
 		this._showPanel = this._showPanel.bind(this);
 		this._closePanel = this._closePanel.bind(this);
 	}
@@ -25,22 +23,17 @@ export default class UserView extends React.Component {
 	componentDidMount() {
 		console.log("UserView - Mounted")
 		var that = this;
-		$(window).on('photoClicked', function() {
-			that.setState({
-				showDialog: true
-			});
-		});
 
 		InstagramService.getUserInfo(this.props.routeParams.user_name).then(function(res) {
 			that.setState({userInfo: res}, function() { console.log(100)});
 		});
 	}
-	_showDialog() {
-		this.setState( {showDialog: true } );
-	}
-	_closeDialog() {
-		this.setState( {showDialog: false } );
-	}
+
+	shouldComponentUpdate(nextProps, nextState) {
+		console.log("UserView - Should component update")
+		return true;
+    }
+
 	_showPanel() {
 		this.setState({showPanel: true});
 	}
@@ -75,7 +68,7 @@ export default class UserView extends React.Component {
 			        		<div className="ms-Grid-row ig-body-content">
 		                        <div className="ms-Grid-col ms-u-sm12 ig-photoFrame">
 		                            <PhotoFrame userInfo={this.state.userInfo} />
-		                            <NewDialog showDialog={this._showDialog} closeDialog={this._closeDialog} dialogState={this.state.showDialog} />
+		                            <NewDialog />
 		                        </div>
 			        		</div>
 			        	</div>

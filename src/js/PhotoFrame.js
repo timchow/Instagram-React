@@ -4,11 +4,11 @@ import Photo from './Photo';
 import InstagramService from './InstagramService';
 
 export default class PhotoFrame extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        console.log("PhotoFrame - Constructor")
+        super(props);
         this.retrievePhotos = this.retrievePhotos.bind(this);
         this.retrieveMorePhotosOnScroll = this.retrieveMorePhotosOnScroll.bind(this);
-
         this.state = this.initialState = {
             media: [],
             max_id: null,
@@ -49,12 +49,14 @@ export default class PhotoFrame extends React.Component {
     }
 
     componentDidMount() {
+        console.log("PhotoFrame - componentDidMount")
         var that = this;
         var user_name = this.props.user_name;
     }
 
     componentWillReceiveProps(nextProps) {
         if (!nextProps.userInfo.is_private) {
+            console.log("PhotoFrame - WillReceive")
             this.setState(this.initialState);
             this.retrievePhotos(nextProps.userInfo.id);
             this.retrieveMorePhotosOnScroll();
@@ -66,6 +68,7 @@ export default class PhotoFrame extends React.Component {
     }
 
     render() {
+        console.log("PhotoFrame - render")
         var photos = [];
 
         this.state.media.forEach(function(media){

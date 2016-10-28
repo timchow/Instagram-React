@@ -31,7 +31,7 @@ export default class Photo extends BaseComponent {
 	        		comments: res,
 	        		bigImage: that.props.bigImage,
                     caption: that.props.caption,
-                    likes: that.props.likes
+                    likes: that.props.likes,
 	        	}
         	);
     	});

@@ -6,7 +6,6 @@ import Stats from './Stats';
 
 class UserBox extends React.Component {
 	constructor() {
-		console.log("UserBox - Constructor")
 		super();
     	this.state = { full_name: '', profile_picture: '', biography:'' }
   	}
@@ -18,7 +17,6 @@ class UserBox extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log("UserBox - Will Receive Props")
 		this.setState({ 
 			full_name: nextProps.userInfo.full_name,
 			profile_picture: nextProps.userInfo.profile_pic_url,
@@ -26,9 +24,6 @@ class UserBox extends React.Component {
 		});
 	}
 	render() {
-		console.log("UserBox - Render")
-		console.log("UserBox - State");
-		console.log(this.state)
 	    return (	
 	    		<div className="ms-Grid">
 	    			<div className="ms-Grid-row">

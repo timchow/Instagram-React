@@ -12,18 +12,24 @@ var imgStyle = {
 export default class NewDialog extends React.Component{
 	constructor() {
 		super();
+		this._showDialog = this._showDialog.bind(this);
+		this._closeDialog = this._closeDialog.bind(this);
+		
 		this.state = {
 			image: '',
 			likes: [],
-			comments: []
+			comments: [],
+			showDialog: false
 		}
 	}
 
 	componentDidMount() {
 		const that = this;
+
 		$(window).on('photoClicked', function() {
 			const photoData = Array.prototype.slice.call(arguments,1)[0];
 			that.setState({
+				showDialog: true,
 				comments: photoData.comments,
 				image: photoData.bigImage,
 				caption: photoData.caption,
@@ -32,15 +38,22 @@ export default class NewDialog extends React.Component{
 		});
 	}
 
+	_showDialog() {
+		this.setState( {showDialog: true } );
+	}
+	_closeDialog() {
+		this.setState( {showDialog: false } );
+	}
+
 	render() {
 		return (
 			<div>
 			<Dialog
 				className='dialog'
 				id='modal'
-				isOpen={ this.props.dialogState }
+				isOpen={ this.state.showDialog }
 				type={ DialogType.normal }
-				onDismiss={ this.props.closeDialog }
+				onDismiss={ this._closeDialog }
 				isDarkOverlay={ true }
 				isBlocking={ false }
 				containerClassName='dialogOverlay'
