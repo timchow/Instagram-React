@@ -1,6 +1,6 @@
 import React from 'react';
-import {Panel, PanelType} from 'office-ui-fabric-react';
 
+import NewPanel from './NewPanel';
 import SearchBar from './SearchBar';
 import PhotoFrame from './PhotoFrame';
 import NewDialog from './Dialog';
@@ -13,11 +13,8 @@ export default class UserView extends React.Component {
 		console.log("UserView - Constructor")
 		super();
 		this.state = {
-			showPanel: false,
 			userInfo: {}
-		}
-		this._showPanel = this._showPanel.bind(this);
-		this._closePanel = this._closePanel.bind(this);
+		}	
 	}
 
 	componentDidMount() {
@@ -34,12 +31,6 @@ export default class UserView extends React.Component {
 		return true;
     }
 
-	_showPanel() {
-		this.setState({showPanel: true});
-	}
-	_closePanel() {
-		this.setState({showPanel: false});
-	}
 	render() {
 		console.log("UserView - Render")
 		console.log("UserView - State");
@@ -56,7 +47,7 @@ export default class UserView extends React.Component {
 					                <div className="ms-Grid">
 					                    <div className="ms-Grid-row">
 					                        <div className="ms-Grid-col ms-u-sm12 ig-userinfo-bar">
-					                            <UserBox userInfo={this.state.userInfo} showPanel={this._showPanel} />
+					                            <UserBox userInfo={this.state.userInfo} />
 					                        </div>
 					                    </div>
 					                </div>
@@ -68,26 +59,13 @@ export default class UserView extends React.Component {
 			        		<div className="ms-Grid-row ig-body-content">
 		                        <div className="ms-Grid-col ms-u-sm12 ig-photoFrame">
 		                            <PhotoFrame userInfo={this.state.userInfo} />
-		                            <NewDialog />
 		                        </div>
 			        		</div>
 			        	</div>
 			        </div>
 			    </div>
-			    <Panel
-					isOpen={ this.state.showPanel }
-					isLightDismiss={ true }
-					onDismiss= { this._closePanel }
-					type={PanelType.smallFixedNear}
-				>
-					<div className="ms-Grid ms-font-xxl ig-panel-content">
-					    <div className="ms-Grid-row">
-					        <div className="ms-Grid-col ms-u-sm12">
-					        	<a href={`/user/${user_name}/insights`}>{"User insights!"}</a>
-					        </div>
-					    </div>
-					</div>
-				</Panel>
+			    <NewDialog />
+			    <NewPanel userInfo={this.state.userInfo} />
 			</div>
 		);
 	}

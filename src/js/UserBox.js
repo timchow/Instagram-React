@@ -23,6 +23,11 @@ class UserBox extends React.Component {
 			biography: nextProps.userInfo.biography
 		});
 	}
+
+	_showPanel() {
+		$(window).trigger('TogglePanel');
+	}
+
 	render() {
 	    return (	
 	    		<div className="ms-Grid">
@@ -47,7 +52,7 @@ class UserBox extends React.Component {
 										disabled={ false }
 										buttonType={ ButtonType.hero }
 										icon='Add'
-										onClick={this.props.showPanel} >
+										onClick={this._showPanel} >
 										More
 									</Button>	
 								</div>
