@@ -10,7 +10,6 @@ import InstagramService from './InstagramService';
 
 export default class UserView extends React.Component {
 	constructor() {
-		console.log("UserView - Constructor")
 		super();
 		this.state = {
 			userInfo: {}
@@ -18,24 +17,17 @@ export default class UserView extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log("UserView - Mounted")
-		var that = this;
-
-		InstagramService.getUserInfo(this.props.routeParams.user_name).then(function(res) {
-			that.setState({userInfo: res}, function() { console.log(100)});
+		InstagramService.getUserInfo(this.props.routeParams.user_name).then((res) => {
+			this.setState({userInfo: res});
 		});
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
-		console.log("UserView - Should component update")
 		return true;
     }
 
 	render() {
-		console.log("UserView - Render")
-		console.log("UserView - State");
-		console.log(this.state)
-		var user_name = this.props.routeParams.user_name,
+		const user_name = this.props.routeParams.user_name,
 			insightsUrl = "/user/"+user_name+"/insights";
 		return (
 			<div className="ms-Grid ig-app-content">

@@ -23,15 +23,14 @@ export default class Photo extends BaseComponent {
     
 
     showDialog() {
-    	var that = this;
-    	InstagramService.getComments(this.props.media_id).then(function(res) {
+    	InstagramService.getComments(this.props.media_id).then((res) => {
             // Passing photo data to dialog
     		$(window).trigger('photoClicked', 
 	        	{
 	        		comments: res,
-	        		bigImage: that.props.bigImage,
-                    caption: that.props.caption,
-                    likes: that.props.likes,
+	        		bigImage: this.props.bigImage,
+                    caption: this.props.caption,
+                    likes: this.props.likes,
 	        	}
         	);
     	});

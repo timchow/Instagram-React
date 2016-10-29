@@ -5,8 +5,8 @@ import InstagramService from './InstagramService';
 
 export default class PhotoFrame extends React.Component {
     constructor(props) {
-        console.log("PhotoFrame - Constructor")
         super(props);
+
         this.retrievePhotos = this.retrievePhotos.bind(this);
         this.retrieveMorePhotosOnScroll = this.retrieveMorePhotosOnScroll.bind(this);
         this.state = this.initialState = {
@@ -17,46 +17,36 @@ export default class PhotoFrame extends React.Component {
     }
 
     retrievePhotos(user_id, max_id) {
-        var that = this;
-        
-        InstagramService.getRecentUserMedia(user_id, max_id).then(function(res) {
-            if (res == undefined){
-                alert('Private user');
+        InstagramService.getRecentUserMedia(user_id, max_id).then((res) => {
+            if (res.length > 0) {
+                this.setState({
+                    media: this.state.media.concat(res),
+                    max_id: res[res.length-1].id,
+                    user_id: user_id
+                });
             }
-            else if (res == 404) {
-                alert(res);
+            else {
+                $(window).off('scroll');
             }
-            else if (res.length == 0) {
-                return;
-            }
-
-            that.setState({
-                media: that.state.media.concat(res),
-                max_id: res[res.length-1].id,
-                user_id: user_id
-            });
         });
     }
 
     retrieveMorePhotosOnScroll() {
-        var that = this;
         $(window).off('scroll');
-        $(window).on('scroll', function() {
+        $(window).on('scroll', () => {
             if($(window).scrollTop() + $(window).height() == $(document).height()) {
-                that.retrievePhotos(that.state.user_id, that.state.max_id);
+                this.retrievePhotos(this.state.user_id, this.state.max_id);
             }
         });
     }
 
     componentDidMount() {
-        console.log("PhotoFrame - componentDidMount")
-        var that = this;
-        var user_name = this.props.user_name;
+        const that = this,
+            user_name = this.props.user_name;
     }
 
     componentWillReceiveProps(nextProps) {
         if (!nextProps.userInfo.is_private) {
-            console.log("PhotoFrame - WillReceive")
             this.setState(this.initialState);
             this.retrievePhotos(nextProps.userInfo.id);
             this.retrieveMorePhotosOnScroll();
@@ -68,15 +58,14 @@ export default class PhotoFrame extends React.Component {
     }
 
     render() {
-        console.log("PhotoFrame - render")
-        var photos = [];
+        const photos = [];
 
         this.state.media.forEach(function(media){
-            var imageUrl = media.images.low_resolution.url;
-            var bigImageUrl = media.images.standard_resolution.url;
-            var likes = media.likes.count;
-            var caption = media.caption ? media.caption.text : "";
-            var media_id = media.id;
+            let imageUrl = media.images.low_resolution.url;
+            let bigImageUrl = media.images.standard_resolution.url;
+            let likes = media.likes.count;
+            let caption = media.caption ? media.caption.text : "";
+            let media_id = media.id;
 
             photos.push(
                 <Photo 
@@ -92,7 +81,9 @@ export default class PhotoFrame extends React.Component {
         return (
             <div className="ms-Grid" > 
                 <div className="ms-Grid-row">
-                    {photos}
+                    {photos.map(function(object, i) {
+                       return <div key={i}>{object}</div>; 
+                     })}
                 </div>
             </div>
             );

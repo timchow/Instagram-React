@@ -11,9 +11,8 @@ class UserBox extends React.Component {
   	}
 
 	componentDidMount() {
-		var that = this,
+		const that = this,
 			user_name = this.props.user_name;
-		console.log("UserBox - Mounted")
 	}
 
 	componentWillReceiveProps(nextProps) {

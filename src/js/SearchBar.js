@@ -1,7 +1,7 @@
 import React from 'react';
 import {SearchBox, Button, ButtonType} from 'office-ui-fabric-react';
 
-var SearchBarStyle = {
+const SearchBarStyle = {
 	width: '300px',
 	zIndex: '0'
 };

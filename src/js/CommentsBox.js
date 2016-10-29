@@ -30,7 +30,9 @@ export default class CommentsBox extends React.Component {
 		return (
 			<div>
 				<ul>
-				{comments}
+				{comments.map(function(object, i) {
+                       return <div key={i}>{object}</div>; 
+                     })}
 				</ul>
 			</div>
 			);

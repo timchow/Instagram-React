@@ -4,7 +4,7 @@ import {Button, ButtonType, Dialog, DialogFooter, DialogType} from 'office-ui-fa
 import Photo from './Photo';
 import CommentsBox from './CommentsBox';
 
-var imgStyle = {
+const imgStyle = {
 	width: '500px',
 	height: 'auto'
 };

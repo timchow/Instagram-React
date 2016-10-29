@@ -8,7 +8,7 @@ import UserView from './UserView';
 
 class SearchView extends React.Component {
 	render() {
-		var indexStyle = this.props.indexStyle || {
+		const indexStyle = this.props.indexStyle || {
 			position: 'absolute',
 			top: '50%',
 			left: '50%',

@@ -28,7 +28,7 @@ const InstagramService = (() => {
 			alert("User not found!");
 			$(".ig-stats-spinner").hide();
 			return e;
-		})
+		});
 	};
 
 	/* Returns a promise that returns at most 20 media objects for a given {user_id} */
