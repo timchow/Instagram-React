@@ -1,4 +1,5 @@
 import React from 'react';
+import Moment from 'moment';
 
 import Photo from './Photo';
 import InstagramService from './InstagramService';
@@ -34,7 +35,9 @@ export default class PhotoFrame extends React.Component {
     retrieveMorePhotosOnScroll() {
         $(window).off('scroll');
         $(window).on('scroll', () => {
-            if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            let scrollPosition = Math.round($(window).scrollTop() + $(window).height()),
+                documentHeight = Math.round($(document).height());
+            if(scrollPosition == documentHeight) {
                 this.retrievePhotos(this.state.user_id, this.state.max_id);
             }
         });
@@ -61,11 +64,12 @@ export default class PhotoFrame extends React.Component {
         const photos = [];
 
         this.state.media.forEach(function(media){
-            let imageUrl = media.images.low_resolution.url;
-            let bigImageUrl = media.images.standard_resolution.url;
-            let likes = media.likes.count;
-            let caption = media.caption ? media.caption.text : "";
-            let media_id = media.id;
+            let imageUrl = media.images.low_resolution.url,
+                bigImageUrl = media.images.standard_resolution.url,
+                likes = media.likes.count,
+                caption = media.caption ? media.caption.text : "",
+                date = Moment.unix(media.created_time).format("MMM DD YYYY"),
+                media_id = media.id;
 
             photos.push(
                 <Photo 
@@ -74,6 +78,7 @@ export default class PhotoFrame extends React.Component {
                     caption={caption}
                     media_id={media_id}
                     bigImage={bigImageUrl}
+                    date={date}
                 />
             );
         });

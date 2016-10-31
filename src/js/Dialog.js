@@ -19,7 +19,8 @@ export default class NewDialog extends React.Component{
 			image: '',
 			likes: [],
 			comments: [],
-			showDialog: false
+			showDialog: false,
+			date: ''
 		}
 	}
 
@@ -33,7 +34,8 @@ export default class NewDialog extends React.Component{
 				comments: photoData.comments,
 				image: photoData.bigImage,
 				caption: photoData.caption,
-				likes: photoData.likes
+				likes: photoData.likes,
+				date: photoData.date
 			});
 		});
 	}
@@ -63,8 +65,11 @@ export default class NewDialog extends React.Component{
 					<div className="ms-Grid-col ms-u-sm1 ig-dialog-likes ms-font-xxl">
 						{this.state.likes} <i className="ms-Icon ms-Icon--HeartFill statsIcons" aria-hidden="true"></i>
 					</div>
-					<div className="ms-Grid-col ms-u-sm11 ig-dialog-caption ms-font-l">
+					<div className="ms-Grid-col ms-u-sm9 ig-dialog-caption ms-font-l">
 						{this.state.caption}
+					</div>
+					<div className="ms-Grid-col ms-u-sm2 ig-dialog-likes ms-font-xxl">
+						{this.state.date}
 					</div>
 				</div>
 			  <div className="ms-Grid-row">
