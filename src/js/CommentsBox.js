@@ -2,6 +2,12 @@ import React from 'react';
 
 import Comment from './Comment.js';
 
+const commentsStyle = {
+	listStyleType: 'none',
+	height: '500px',
+	overflowY: 'auto'
+};
+
 export default class CommentsBox extends React.Component {
 	constructor() {
 		super();
@@ -29,7 +35,7 @@ export default class CommentsBox extends React.Component {
 		});
 		return (
 			<div>
-				<ul>
+				<ul style={commentsStyle}>
 				{comments.map(function(object, i) {
                        return <div key={i}>{object}</div>; 
                      })}
