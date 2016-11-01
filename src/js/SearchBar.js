@@ -3,7 +3,9 @@ import {SearchBox, Button, ButtonType} from 'office-ui-fabric-react';
 
 const SearchBarStyle = {
 	width: '300px',
-	zIndex: '0'
+	zIndex: '0',
+	marginLeft: 'auto',
+	marginRight: '0'
 };
 
 export default class SearchBar extends React.Component {

@@ -44,7 +44,7 @@ export default class UserView extends React.Component {
 					                    </div>
 					                </div>
 					            </div>
-					            <div className="ms-Grid-col ms-u-sm3 ig-search-bar">
+					            <div className="ms-Grid-col ms-u-sm4 ig-search-bar">
 					                <SearchBar indexStyle={{}} label={user_name} />
 					            </div>		        			
 			        		</div>
