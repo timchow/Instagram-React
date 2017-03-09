@@ -4,15 +4,14 @@ import {Button, ButtonType } from 'office-ui-fabric-react'
 import InstagramService from './InstagramService';
 import Stats from './Stats';
 
-class UserBox extends React.Component {
+export default class UserBox extends React.Component {
 	constructor() {
 		super();
     	this.state = { full_name: '', profile_picture: '', biography:'' }
   	}
 
 	componentDidMount() {
-		const that = this,
-			user_name = this.props.user_name;
+		const that = this;
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -64,6 +63,4 @@ class UserBox extends React.Component {
         		</div>
 			);
   	}
-}
-
-export default UserBox;
+};
