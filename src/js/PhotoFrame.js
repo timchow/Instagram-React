@@ -3,6 +3,7 @@ import Moment from 'moment';
 
 import Photo from './Photo';
 import InstagramService from './InstagramService';
+import Utility from './Utility';
 
 export default class PhotoFrame extends React.Component {
     constructor(props) {
@@ -18,18 +19,35 @@ export default class PhotoFrame extends React.Component {
     }
 
     retrievePhotos(user_id, max_id) {
-        InstagramService.getRecentUserMedia(user_id, max_id).then((res) => {
-            if (res.length > 0) {
-                this.setState({
-                    media: this.state.media.concat(res),
-                    max_id: res[res.length-1].id,
-                    user_id: user_id
-                });
-            }
-            else {
-                $(window).off('scroll');
-            }
-        });
+        if (Utility.isUserPhotosCached(user_id)) {
+
+            let cachedPhotosObject = Utility.getCachedPhotosForUser(user_id),
+                cachedPhotos = cachedPhotosObject[2],
+                initialPhotoBatch = cachedPhotos.slice(0,20);
+
+            this.setState({
+                media: this.state.media.concat(initialPhotoBatch),
+                user_id: user_id
+            });
+
+            cachedPhotosObject[0] = 20;
+            Utility.setCachedPhotosForUser(user_id, cachedPhotosObject);
+        }
+        else {
+            InstagramService.getRecentUserMedia(user_id, max_id).then((res) => {
+                if (res.length > 0) {
+                    this.setState({
+                        media: this.state.media.concat(res),
+                        max_id: res[res.length-1].id,
+                        user_id: user_id
+                    });
+                }
+                else {
+                    $(window).off('scroll');
+                }
+            });          
+        }
+
     }
 
     retrieveMorePhotosOnScroll() {
@@ -38,7 +56,30 @@ export default class PhotoFrame extends React.Component {
             let scrollPosition = Math.round($(window).scrollTop() + $(window).height()),
                 documentHeight = Math.round($(document).height());
             if(scrollPosition == documentHeight) {
-                this.retrievePhotos(this.state.user_id, this.state.max_id);
+                let user_id = this.state.user_id;
+                if (Utility.isUserPhotosCached(user_id)) {
+                    // Get 20 photos from the cache
+                    let cachedPhotosObject = Utility.getCachedPhotosForUser(user_id),
+                        cachedPhotos = cachedPhotosObject[2],
+                        max_id = cachedPhotosObject[0];
+
+                    console.log("Retrieving from cache!");
+                    // Slice from {max_id} to {max_id+20}
+                    let new_max_id = max_id + 20,
+                        nextPhotoBatch = cachedPhotos.slice(max_id, new_max_id);
+
+                    this.setState({
+                        media: this.state.media.concat(nextPhotoBatch),
+                        max_id: new_max_id
+                    }, () => {
+                        cachedPhotosObject[0] = new_max_id;
+                        Utility.setCachedPhotosForUser(user_id, cachedPhotosObject);
+                    });
+
+                }
+                else {
+                    this.retrievePhotos(this.state.user_id, this.state.max_id);
+                }
             }
         });
     }

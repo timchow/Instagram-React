@@ -2,6 +2,7 @@ import React from 'react';
 import {Label, Spinner, SpinnerType} from 'office-ui-fabric-react'
 
 import InstagramService from './InstagramService';
+import Utility from './Utility';
 
 Array.prototype.sum = function(prop) {
     var total = 0
@@ -27,14 +28,38 @@ export default class Stats extends React.Component{
 
 	componentWillReceiveProps(nextProps) {
 		if (!nextProps.userInfo.is_private) {
-			InstagramService.getAllUserMedia(nextProps.userInfo.id).then((res) => {
+			let user_id = nextProps.userInfo.id;
+
+			if (Utility.isUserPhotosCached(user_id)) {
+				let cachedPhotosObject = Utility.getCachedPhotosForUser(user_id),
+                	cachedPhotos = cachedPhotosObject[2];
+
 				this.setState({
-					totalLikes: res.sum("likes"),
-					totalComments: res.sum("comments")
+						totalLikes: cachedPhotos.sum("likes"),
+						totalComments: cachedPhotos.sum("comments")
 				}, () => {
 					$('.ig-stats-spinner').hide();
+					cachedPhotosObject[0] = 20;
+            		Utility.setCachedPhotosForUser(user_id, cachedPhotosObject);
+            		console.log("Retrieved photos for stats from cache!");
 				});
-			});
+			}
+			else {
+				InstagramService.getAllUserMedia(user_id).then((res) => {
+					this.setState({
+						totalLikes: res.sum("likes"),
+						totalComments: res.sum("comments")
+					}, () => {
+						$('.ig-stats-spinner').hide();
+						let photosObject = [20, res.length, res];
+						Utility.setCachedPhotosForUser(user_id, photosObject);
+						console.log("Cached photos for stats!");
+					});
+				});
+			}
+
+
+			
 		}
 	}
 

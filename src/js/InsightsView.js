@@ -37,12 +37,17 @@ export default class InsightsView extends React.Component {
 		const that = this,
 			user_name = this.props.routeParams.user_name;
 		
-		InstagramService.getAllUserMediaLikes(user_name).then(function(res) {
-			that.setState({likers: res}, () => {
-				$(".ig-bargraph-spinner").hide();
-				$(".ig-barchart").show();
+		if (window.localStorage["photos"] != null) {
+
+		}
+		else {
+			InstagramService.getAllUserMediaLikes(user_name).then(function(res) {
+				that.setState({likers: res}, () => {
+					$(".ig-bargraph-spinner").hide();
+					$(".ig-barchart").show();
+				});
 			});
-		});
+		}
 	}
 
 	render() {
