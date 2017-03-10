@@ -3,7 +3,7 @@ import {Label, Spinner, SpinnerType} from 'office-ui-fabric-react';
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell} from 'recharts';
 
 import InstagramService from './InstagramService';
-
+import Utility from './Utility';
 
 
 Array.prototype.sum = (prop) => {
@@ -37,17 +37,47 @@ export default class InsightsView extends React.Component {
 		const that = this,
 			user_name = this.props.routeParams.user_name;
 		
-		if (window.localStorage["photos"] != null) {
+		InstagramService.getUserInfo(user_name).then((res) => {
+			let user_id = res.id;
+			if (Utility.isUserPhotosCached(user_id)) {
+				console.log("found in cached!")
+				let cachedPhotosObject = Utility.getCachedPhotosForUser(user_id),
+	                cachedPhotos = cachedPhotosObject[2];
 
-		}
-		else {
-			InstagramService.getAllUserMediaLikes(user_name).then(function(res) {
-				that.setState({likers: res}, () => {
-					$(".ig-bargraph-spinner").hide();
-					$(".ig-barchart").show();
+	            let requestArr = [], 
+	            	likers = {};
+					
+				requestArr = cachedPhotos.map((photo) => InstagramService.getLikes(photo.id));
+
+				$.when.apply(this, requestArr).then((...res) => {
+					res.forEach((users) => {
+						users.forEach((user) => {
+							const user_name = user.username;
+							likers[user_name] = (likers[user_name] || 0) + 1;
+						});				
+					});
+					return likers;
+				}).then((res) => {
+					that.setState({likers: res}, () => {
+						$(".ig-bargraph-spinner").hide();
+						$(".ig-barchart").show();
+						console.log("Loaded photos from cache")
+					});
 				});
-			});
-		}
+
+			}
+			else {
+				InstagramService.getAllUserMediaLikes(user_name).then(function(res) {
+					console.log("retrieved from service");
+					that.setState({likers: res}, () => {
+						$(".ig-bargraph-spinner").hide();
+						$(".ig-barchart").show();
+					});
+				});
+			}
+
+		});
+		
 	}
 
 	render() {
