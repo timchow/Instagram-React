@@ -5,7 +5,7 @@ var path = require("path");
 var https = require('https');
 var pug = require('pug');
 
-var ACCESS_TOKEN = "48202095.e029fea.7e080ab5cc0a4ae6b8094adf05a5e980";
+var ACCESS_TOKEN = "";
 
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
